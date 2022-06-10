@@ -1,0 +1,96 @@
+header {
+  background-color: hsla(220, 7%, 18%, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+  width: 100%;
+}
+
+.open-menu {
+  background-color: hsla(216, 9%, 23%, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  width: 3.5rem;
+  /* padding: 1rem; */
+}
+
+.open-menu .icon-open {
+  width: 23px;
+  height: 14px;
+}
+
+.open-menu .icon-close {
+  width: 18px;
+  height: 18px;
+}
+
+.open-menu .icon-open {
+  display: block;
+}
+
+.open-menu .icon-close {
+  display: none;
+}
+
+.open-menu.open .icon-open {
+  display: none;
+}
+
+.open-menu.open .icon-close {
+  display: block;
+}
+
+.document {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.document img {
+  width: 1rem;
+  height: 1rem;
+  margin: 1rem;
+}
+
+.document span {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  /* 100 */
+  color: #ffffff;
+}
+
+.delete {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.delete img {
+  width: 1rem;
+  height: 1.25rem;
+}
+
+.save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e46643;
+  border-radius: 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.25rem;
+}
+
+.save img {
+  width: 1rem;
+  height: 1rem;
+}
