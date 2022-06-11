@@ -1,5 +1,5 @@
 export interface MarkdownDocument {
-    createdAt: string,
-    name: string,
+    createdAt: string
+    name: string
     content: string
 }

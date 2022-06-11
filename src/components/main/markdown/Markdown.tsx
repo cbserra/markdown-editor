@@ -1,35 +1,36 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import styles from "./Markdown.module.scss";
+import { ChangeEvent, useEffect, useState } from 'react'
+import styles from './Markdown.module.scss'
 
 const Markdown = (props: {
-  loadedFileContent: string;
-  setLoadedFileContent: React.Dispatch<React.SetStateAction<string>>;
+    loadedDocumentContent: string
+    setLoadedDocumentContent: React.Dispatch<React.SetStateAction<string>>
 }) => {
-  const setLoadedFileContent = props.setLoadedFileContent;
-  const loadedFileContent = props.loadedFileContent;
-  const [markdownData, setMarkdownData] = useState<string>(
-    props.loadedFileContent
-  );
+    const setLoadedDocumentContent = props.setLoadedDocumentContent
+    const loadedDocumentContent = props.loadedDocumentContent
+    const [markdownData, setMarkdownData] = useState<string>(props.loadedDocumentContent)
 
-  useEffect(() => {
-    setLoadedFileContent(markdownData);
-  }, [markdownData, setLoadedFileContent]);
+    useEffect(() => {
+        console.log(`inside Markdown.useEffect #1, markdownData=${markdownData}`)
+        setLoadedDocumentContent(markdownData)
+    }, [markdownData, setLoadedDocumentContent])
 
-  useEffect(() => {
-    setMarkdownData(loadedFileContent);
-  }, [setMarkdownData, loadedFileContent]);
+    useEffect(() => {
+        console.log(`inside Markdown.useEffect #2, loadedDocumentContent=${loadedDocumentContent}`)
+        setMarkdownData(loadedDocumentContent)
+    }, [setMarkdownData, loadedDocumentContent])
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setMarkdownData(event.target.value);
-  };
+    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        console.log(`inside Markdown.handleChange, event.target.value=${event.target.value}`)
+        setMarkdownData(event.target.value)
+    }
 
-  console.log(`inside Markdown, markdownData=${markdownData}`);
+    //   console.log(`inside Markdown, markdownData=${markdownData}`);
 
-  return (
-    <div className={styles.markdown}>
-      <textarea value={markdownData} onChange={(e) => handleChange(e)} />
-    </div>
-  );
-};
+    return (
+        <div className={styles.markdown}>
+            <textarea value={markdownData} onChange={(e) => handleChange(e)} />
+        </div>
+    )
+}
 
-export default Markdown;
+export default Markdown

@@ -1,18 +1,19 @@
-import styles from "./Preview.module.scss";
-import { marked } from "marked";
+import styles from './Preview.module.scss'
+import { marked } from 'marked'
+import { useEffect, useState } from 'react'
 
 const Preview = (props: {
-  loadedFileContent: string;
-  setLoadedFileContent: React.Dispatch<React.SetStateAction<string>>;
+    loadedDocumentContent: string
+    setLoadedDocumentContent: React.Dispatch<React.SetStateAction<string>>
 }) => {
-  const parsedMarkdown = marked.parse(props.loadedFileContent);
+    const loadedDocumentContent = props.loadedDocumentContent
+    const [parsedMarkdown, setParsedMarkdown] = useState<string>('')
 
-  return (
-    <div
-      className={styles.preview}
-      dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
-    ></div>
-  );
-};
+    useEffect(() => {
+        setParsedMarkdown(marked.parse(loadedDocumentContent))
+    }, [loadedDocumentContent])
 
-export default Preview;
+    return <div className={styles.preview} dangerouslySetInnerHTML={{ __html: parsedMarkdown }}></div>
+}
+
+export default Preview

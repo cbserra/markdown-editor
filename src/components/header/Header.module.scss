@@ -1,96 +1,105 @@
 header {
-  background-color: hsla(220, 7%, 18%, 1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 3.5rem;
-  width: 100%;
+    align-items: center;
+    background-color: hsl(220deg 7% 18% / 100%);
+    display: flex;
+    height: 3.5rem;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .open-menu {
-  background-color: hsla(216, 9%, 23%, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 3.5rem;
-  width: 3.5rem;
-  /* padding: 1rem; */
+    align-items: center;
+    background-color: hsl(216deg 9% 23% / 100%);
+    display: flex;
+    height: 3.5rem;
+    justify-content: center;
+    width: 3.5rem;
+
+    /* padding: 1rem; */
+}
+
+.open-menu:hover {
+    background-color: hsl(13deg 75% 58% / 100%);
+    cursor: pointer;
 }
 
 .open-menu .icon-open {
-  width: 23px;
-  height: 14px;
+    display: inline;
+    height: 14px;
+    width: 23px;
 }
 
 .open-menu .icon-close {
-  width: 18px;
-  height: 18px;
-}
-
-.open-menu .icon-open {
-  display: block;
-}
-
-.open-menu .icon-close {
-  display: none;
+    display: none;
 }
 
 .open-menu.open .icon-open {
-  display: none;
+    display: none;
 }
 
 .open-menu.open .icon-close {
-  display: block;
+    display: inline;
+    height: 18px;
+    width: 18px;
 }
 
 .document {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .document img {
-  width: 1rem;
-  height: 1rem;
-  margin: 1rem;
+    height: 1rem;
+    margin: 1rem;
+    width: 1rem;
 }
 
 .document span {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.125rem;
-  /* 100 */
-  color: #ffffff;
+    /* 100 */
+    color: #fff;
+    font-family: Roboto, sans-serif, serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.125rem;
 }
 
 .delete {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+    align-items: center;
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    margin-left: auto;
+    width: 2.5rem;
+}
+
+.delete:hover {
+    cursor: pointer;
 }
 
 .delete img {
-  width: 1rem;
-  height: 1.25rem;
+    height: 1.25rem;
+    width: 1rem;
 }
 
 .save {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e46643;
-  border-radius: 0.25rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: 0.25rem;
+    align-items: center;
+    background: #e46643;
+    border-radius: 0.25rem;
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    margin: 0.25rem;
+    width: 2.5rem;
+}
+
+.save:hover {
+    background-color: hsl(21deg 86% 68% / 100%);
+    cursor: pointer;
 }
 
 .save img {
-  width: 1rem;
-  height: 1rem;
+    height: 1rem;
+    width: 1rem;
 }
