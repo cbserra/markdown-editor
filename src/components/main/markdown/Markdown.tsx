@@ -1,34 +1,41 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import styles from './Markdown.module.scss'
 
-const Markdown = (props: {
-    loadedDocumentContent: string
-    setLoadedDocumentContent: React.Dispatch<React.SetStateAction<string>>
-}) => {
-    const setLoadedDocumentContent = props.setLoadedDocumentContent
-    const loadedDocumentContent = props.loadedDocumentContent
-    const [markdownData, setMarkdownData] = useState<string>(props.loadedDocumentContent)
+const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch<React.SetStateAction<string>> }) => {
+    const markdownData = props.markdownData
+    const setMarkdownData = props.setMarkdownData
+    const [localMarkdownData, setLocalMarkdownData] = useState<string>(markdownData)
 
     useEffect(() => {
-        console.log(`inside Markdown.useEffect #1, markdownData=${markdownData}`)
-        setLoadedDocumentContent(markdownData)
-    }, [markdownData, setLoadedDocumentContent])
+        setMarkdownData(localMarkdownData)
+        console.log('🚀 ~ file: Markdown.tsx ~ line 16 ~ useEffect ~ localMarkdownData', localMarkdownData)
+    }, [localMarkdownData])
 
     useEffect(() => {
-        console.log(`inside Markdown.useEffect #2, loadedDocumentContent=${loadedDocumentContent}`)
-        setMarkdownData(loadedDocumentContent)
-    }, [setMarkdownData, loadedDocumentContent])
+        setLocalMarkdownData(markdownData)
+        console.log('🚀 ~ file: Markdown.tsx ~ line 18 ~ useEffect ~ markdownData', markdownData)
+    }, [markdownData])
+
+    // useEffect(() => {
+    //     console.log(`inside Markdown.useEffect #2, localMarkdownContent=${localMarkdownContent}`)
+    //     setLocalMarkdownContent(localMarkdownContent)
+    // }, [setLocalMarkdownContent, localMarkdownContent])
 
     const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(`inside Markdown.handleChange, event.target.value=${event.target.value}`)
-        setMarkdownData(event.target.value)
+        console.log('🚀 ~ file: Markdown.tsx ~ line 34 ~ handleChange ~ event', event)
+        setLocalMarkdownData(event.target.value)
     }
 
     //   console.log(`inside Markdown, markdownData=${markdownData}`);
 
     return (
-        <div className={styles.markdown}>
-            <textarea value={markdownData} onChange={(e) => handleChange(e)} />
+        <div className={'markdown'}>
+            <textarea
+                className={
+                    'h-full w-full border-0 font-mono text-sm font-normal bg-neutral-100 text-neutral-1000 dark:bg-neutral-1000 dark:text-neutral-100'
+                }
+                value={localMarkdownData}
+                onChange={(e) => handleChange(e)}
+            />
         </div>
     )
 }

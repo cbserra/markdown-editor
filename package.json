@@ -3,12 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@heroicons/react": "^1.0.6",
         "@types/dateformat": "^5.0.0",
         "@types/jest": "^27.5.2",
         "@types/marked": "^4.0.3",
         "@types/node": "^16.11.39",
         "@types/react": "^18.0.12",
         "@types/react-dom": "^18.0.5",
+        "classnames": "^2.3.1",
         "dateformat": "^5.0.3",
         "marked": "^4.0.16",
         "react": "^18.1.0",
@@ -26,6 +28,7 @@
         "@typescript-eslint/eslint-plugin": "^5.23.0",
         "@typescript-eslint/parser": "^5.23.0",
         "autoprefixer": "^10.4.7",
+        "babel-plugin-styled-components": "^2.0.7",
         "eslint": "^8.15.0",
         "eslint-config-airbnb-typescript": "^17.0.0",
         "eslint-config-prettier": "^8.5.0",
@@ -37,6 +40,7 @@
         "lint-staged": "^12.4.1",
         "postcss": "^8.4.13",
         "postcss-fail-on-warn": "^0.2.1",
+        "postcss-import": "^14.1.0",
         "postcss-nested": "^5.0.6",
         "prettier": "^2.6.2",
         "stylelint": "^14.8.2",
@@ -44,6 +48,7 @@
         "stylelint-config-sass-guidelines": "^9.0.1",
         "stylelint-config-standard": "^25.0.0",
         "stylelint-prettier": "^2.0.0",
+        "tailwindcss": "^3.1.2",
         "typescript-eslint": "^0.0.1-alpha.0"
     },
     "scripts": {
@@ -82,5 +87,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "resolutions": {
+        "styled-components": "^5"
     }
 }

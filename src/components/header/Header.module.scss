@@ -10,6 +10,7 @@ header {
 .open-menu {
     align-items: center;
     background-color: hsl(216deg 9% 23% / 100%);
+    color: #fff;
     display: flex;
     height: 3.5rem;
     justify-content: center;
@@ -43,27 +44,7 @@ header {
     width: 18px;
 }
 
-.document {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
 
-.document img {
-    height: 1rem;
-    margin: 1rem;
-    width: 1rem;
-}
-
-.document span {
-    /* 100 */
-    color: #fff;
-    font-family: Roboto, sans-serif, serif;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.125rem;
-}
 
 .delete {
     align-items: center;

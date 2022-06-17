@@ -1,37 +1,42 @@
 import { useEffect, useState } from 'react'
-import { MarkdownDocument } from '../../data/DataTypes'
-import styles from './Main.module.scss'
+import { useMarkdownContext } from '../../contexts/MarkdownDocumentContext'
+// import styles from './Main.module.scss'
 import Markdown from './markdown/Markdown'
 import Preview from './preview/Preview'
 import ToggleMarkdownPreview from './toggle-markdown-preview/ToggleMarkdownPreview'
 
-const Main = (props: {
-    setLoadedDocumentContent: React.Dispatch<React.SetStateAction<string>>
-    loadedDocumentContent: string
-}) => {
+const Main = () => {
+    const { loadedDoc, setLoadedDoc } = useMarkdownContext()
     const [togglePreview, setTogglePreview] = useState(false)
-    const loadedDocumentContent = props.loadedDocumentContent
-    const setLoadedDocumentContent = props.setLoadedDocumentContent
+    const [localMarkdownContent, setLocalMarkdownContent] = useState(loadedDoc.content)
+    // const [localLoadedDoc, setLocalLoadedDoc] = useState(loadedDoc)
 
     useEffect(() => {
-        console.log(`inside Main.useEffect #1, loadedDocumentContent=${loadedDocumentContent}`)
-        // setLoadedDocumentContent(props.loadedDocumentContent)
-    }, [loadedDocumentContent])
+        const newLoadedDoc = Object.assign({}, loadedDoc)
+        newLoadedDoc.content = localMarkdownContent
+        setLoadedDoc(newLoadedDoc)
+        console.log('🚀 ~ file: Main.tsx ~ line 19 ~ useEffect ~ newLoadedDoc', newLoadedDoc)
+    }, [localMarkdownContent])
+
+    // useEffect(() => {
+    //     const newLoadedDoc = Object.assign({}, localLoadedDoc)
+    //     newLoadedDoc.content = localMarkdownContent
+    //     console.log("🚀 ~ file: Main.tsx ~ line 27 ~ useEffect ~ newLoadedDoc", newLoadedDoc)
+
+    //     setLocalLoadedDoc(newLoadedDoc)
+    // }, [localMarkdownContent])
+
+    useEffect(() => {
+        setLocalMarkdownContent(loadedDoc.content)
+        console.log('🚀 ~ file: Main.tsx ~ line 32 ~ useEffect ~ setLocalMarkdownContent', setLocalMarkdownContent)
+    }, [loadedDoc])
 
     return (
-        <main className={styles.main}>
+        <main className={'h-full w-full overflow-y-hidden overflow-x-auto'}>
             <ToggleMarkdownPreview togglePreview={togglePreview} setTogglePreview={setTogglePreview} />
-            {togglePreview && (
-                <Preview
-                    loadedDocumentContent={loadedDocumentContent}
-                    setLoadedDocumentContent={setLoadedDocumentContent}
-                />
-            )}
+            {togglePreview && <Preview markdownData={localMarkdownContent} />}
             {!togglePreview && (
-                <Markdown
-                    loadedDocumentContent={loadedDocumentContent}
-                    setLoadedDocumentContent={setLoadedDocumentContent}
-                />
+                <Markdown markdownData={localMarkdownContent} setMarkdownData={setLocalMarkdownContent} />
             )}
         </main>
     )

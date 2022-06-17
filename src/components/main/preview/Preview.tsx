@@ -1,19 +1,20 @@
-import styles from './Preview.module.scss'
 import { marked } from 'marked'
 import { useEffect, useState } from 'react'
+import cx from 'classnames'
 
-const Preview = (props: {
-    loadedDocumentContent: string
-    setLoadedDocumentContent: React.Dispatch<React.SetStateAction<string>>
-}) => {
-    const loadedDocumentContent = props.loadedDocumentContent
-    const [parsedMarkdown, setParsedMarkdown] = useState<string>('')
+const Preview = (props: { markdownData: string }) => {
+    const [parsedMarkdown, setParsedMarkdown] = useState<string>(marked.parse(props.markdownData))
 
     useEffect(() => {
-        setParsedMarkdown(marked.parse(loadedDocumentContent))
-    }, [loadedDocumentContent])
+        setParsedMarkdown(marked.parse(props.markdownData))
+    }, [props.markdownData])
 
-    return <div className={styles.preview} dangerouslySetInnerHTML={{ __html: parsedMarkdown }}></div>
+    return (
+        <div
+            className={cx('preview', 'text-neutral-500', 'dark:text-neutral-400')}
+            dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
+        ></div>
+    )
 }
 
 export default Preview

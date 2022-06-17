@@ -1,26 +1,25 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import useLocalStorage from 'use-local-storage'
-
-export type Theme = 'dark' | 'light'
 
 export const useTheme = () => {
     const isSystemInDarkMode = matchMedia('(prefers-color-scheme: dark)')
-    const getPreferredColorScheme = () => (isSystemInDarkMode.matches ? 'dark' : 'light')
+    const prefersDarkMode = () => isSystemInDarkMode.matches
 
-    const [currentTheme, setCurrentTheme] = useLocalStorage<Theme>('current-theme', getPreferredColorScheme())
-    const [themeLoaded, setThemeLoaded] = useState(false)
-
-    const setMode = useCallback(
-        (mode: Theme) => {
-            setCurrentTheme(mode)
-        },
-        [setCurrentTheme],
-    )
+    const [lsDarkModeEnabled, setLsDarkModeEnabled] = useLocalStorage<boolean>('dark-mode', prefersDarkMode())
+    const [darkMode, toggleDarkMode] = useState<boolean>(lsDarkModeEnabled)
 
     useEffect(() => {
-        setMode(currentTheme)
-        setThemeLoaded(true)
-    }, [currentTheme, setMode])
+        setLsDarkModeEnabled(darkMode)
 
-    return { currentTheme, themeLoaded, setMode }
+        if (window === undefined) return
+        const root = window.document.documentElement
+
+        if (darkMode) {
+            root.classList.add('dark')
+        } else {
+            root.classList.remove('dark')
+        }
+    }, [darkMode])
+
+    return { darkMode: darkMode, toggleDarkMode: toggleDarkMode }
 }
