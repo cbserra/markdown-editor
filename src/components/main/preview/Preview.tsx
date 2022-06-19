@@ -11,7 +11,7 @@ const Preview = (props: { markdownData: string }) => {
 
     return (
         <div
-            className={cx('preview', 'text-neutral-500', 'dark:text-neutral-400')}
+            className={cx('preview h-full px-4 py-3 overflow-auto', 'text-neutral-500', 'dark:text-neutral-400')}
             dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
         ></div>
     )

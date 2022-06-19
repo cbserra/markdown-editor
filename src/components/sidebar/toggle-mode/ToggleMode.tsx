@@ -14,36 +14,23 @@ const ToggleMode = () => {
             >
                 <Moon className={'w-4 h-4'} />
             </span>
-            <div
-                className={
-                    'relative buttons flex items-center justify-center bg-neutral-600 rounded-[14.5px] h-6 mx-2 w-12'
-                }
-            >
+            <div className={'relative inline-block buttons bg-neutral-600 rounded-[14.5px] h-6 mx-2 w-12'}>
                 <input
-                    type="radio"
+                    type="checkbox"
                     name="dark-mode"
-                    id={'dark-mode-true'}
-                    className={'radio-mode'}
-                    value="true"
-                    onChange={() => toggleDarkMode(true)}
+                    id={'dark-mode'}
+                    className={'radio-mode peer'}
+                    // value="true"
+                    onChange={() => toggleDarkMode(!darkMode)}
                     checked={darkMode}
                 />
-                <input
-                    type="radio"
-                    name="dark-mode"
-                    id={'dark-mode-false'}
-                    className={'radio-mode'}
-                    value="false"
-                    onChange={() => toggleDarkMode(false)}
-                    checked={!darkMode}
-                />
-                {/* transform: translate3d(0, 0, 0);
-                        transition: transform 600ms cubic-bezier(0.02, 0.94, 0.09, 0.97),
-                            background 300ms cubic-bezier(0.17, 0.67, 0.14, 1.03); */}
-                <div
-                    className={cx('switch-indicator', darkMode ? '-left-8' : '-left-2')}
+                <span
+                    className={cx(
+                        'switch-indicator bg-neutral-100 h-[12px] w-[12px] rounded-[50%] absolute z-10 top-0 bottom-0 left-[30px] right-0 mt-auto mb-auto',
+                        'peer-checked:left-[6px]',
+                    )}
                     onClick={() => toggleDarkMode((prevValue) => !prevValue)}
-                ></div>
+                ></span>
             </div>
             <span className={darkMode ? 'text-neutral-600' : 'text-neutral-100'} onClick={() => toggleDarkMode(false)}>
                 <Sun className={'h-5 w-5'} />

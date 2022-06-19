@@ -1,8 +1,7 @@
-import { ChangeEvent, createRef, RefObject, useEffect, useState } from 'react'
+import cx from 'classnames'
+import { ChangeEvent, createRef, RefObject, SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useMarkdownContext } from '../../../contexts/MarkdownDocumentContext'
 import { ReactComponent as DocIcon } from '../../../images/icon-document.svg'
-import { MarkdownEditorData } from '../../../types/MarkdownTypes'
 
 const DocumentDiv = styled.div`
     align-items: center;
@@ -18,7 +17,6 @@ const DocumentDiv = styled.div`
 
     & .filename {
         background-color: transparent;
-        border: 0;
 
         /* 100 */
         color: #fff;
@@ -38,65 +36,80 @@ const DocumentDiv = styled.div`
         }
     }
 `
-const Document = () => {
-    const editorData: MarkdownEditorData = useMarkdownContext()
-    const loadedDoc = editorData.loadedDoc
-    const updateDocumentName: (newDocumentName: string) => void = editorData.updateDocumentName
-    const [documentName, setDocumentName] = useState<string>(editorData.loadedDoc.name)
+const Document = (props: { documentName: string; setDocumentName: React.Dispatch<SetStateAction<string>> }) => {
+    const documentName = props.documentName
+    const setDocumentName = props.setDocumentName
+    const [localDocumentName, setLocalDocumentName] = useState<string>(documentName)
     const [isReadOnly, setIsReadOnly] = useState<boolean>(true)
 
     useEffect(() => {
-        setDocumentName(loadedDoc.name)
-    }, [loadedDoc])
+        setLocalDocumentName(documentName)
+    }, [documentName])
+
+    useEffect(() => {
+        setDocumentName(localDocumentName)
+    }, [localDocumentName])
 
     const docNameInputRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
-    const editDocumentName = () => {
-        console.log(`inside Document, editDocumentName`)
-        const element: HTMLDivElement | null = docNameInputRef.current
-        element?.removeAttribute('readOnly')
-        console.log(`inside Document, editDocumentName, element=${JSON.stringify(element)}`)
-    }
+    // const editDocumentName = () => {
+    //     console.log(`inside Document, editDocumentName`)
+    //     const element: HTMLDivElement | null = docNameInputRef.current
+    //     element?.removeAttribute('readOnly')
+    //     console.log(`inside Document, editDocumentName, element=${JSON.stringify(element)}`)
+    // }
 
     useEffect(() => {
         const element: HTMLInputElement | null = docNameInputRef.current
 
-        element?.addEventListener('change', () => setDocumentName(element?.value))
-        element?.addEventListener('dblclick', () => setIsReadOnly(false))
+        // element?.addEventListener('change', () => setDocumentName(element?.value))
+        element?.addEventListener('focus', () => setIsReadOnly(false))
         element?.addEventListener('blur', () => setIsReadOnly(true))
-        element?.addEventListener('keydown', (event) => {
-            if (!event.target) {
-                return
-            }
+        // element?.addEventListener('keydown', (event) => {
+        //     if (!event.target) {
+        //         return
+        //     }
 
-            if (event.key === 'Enter') {
-                updateDocumentName(element.value)
-                event.preventDefault()
-                // event.stopPropagation()
-            }
-        })
+        //     if (event.key === 'Enter') {
+        //         updateDocumentName(element.value)
+        //         event.preventDefault()
+        //         event.stopPropagation()
+        //     }
+        // })
 
         return () => {
-            element?.removeEventListener('change', () => setDocumentName(element?.value))
-            element?.removeEventListener('dblclick', () => setIsReadOnly(false))
+            // element?.removeEventListener('change', () => setDocumentName(element?.value))
+            element?.removeEventListener('focus', () => setIsReadOnly(false))
             element?.removeEventListener('blur', () => setIsReadOnly(true))
         }
     })
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(`inside Document.handleChange, event.target.value=${event.target.value}`)
-        setDocumentName(event.target.value)
+        console.log('🚀 ~ file: Document.tsx ~ line 89 ~ handleChange ~ event', event)
+        setLocalDocumentName(event.target.value)
     }
 
     return (
-        <DocumentDiv className="ml-6 mt-[18px] mb-5">
+        <DocumentDiv className="h-full ml-6">
             <DocIcon />
-            <input
-                type={'text'}
-                className={'filename ml-4'}
-                value={documentName}
-                readOnly={isReadOnly}
-                ref={docNameInputRef}
-                onChange={(e) => handleChange(e)}
-            />
+            <div className="filename-wrapper flex flex-col h-9 pl-4 justify-center">
+                <label
+                    className="sm:hidden md:inline lg:inline document-name text-xs text-neutral-500 font-light mb-1"
+                    htmlFor="filename"
+                >
+                    Document Name
+                </label>
+                <input
+                    type={'text'}
+                    className={cx('filename active:border-0 focus-visible:outline-none', {
+                        'bg-transparent-0 border-b-[1px] border-b-neutral-100 caret-orange-idle': !isReadOnly,
+                    })}
+                    value={documentName}
+                    readOnly={isReadOnly}
+                    ref={docNameInputRef}
+                    id={'filename'}
+                    onChange={(e) => handleChange(e)}
+                />
+            </div>
         </DocumentDiv>
     )
 }

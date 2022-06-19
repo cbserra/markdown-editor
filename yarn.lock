@@ -9079,6 +9079,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+use-local-storage-state@^18.1.0:
+  version "18.1.0"
+  resolved "https://registry.yarnpkg.com/use-local-storage-state/-/use-local-storage-state-18.1.0.tgz#65ac069eb9b7aa6fab8f7b4ca4b5b3ce7a0abca2"
+  integrity sha512-UY86uFHeQyh0oVMjKdco+lzDWok+rx2Fz4uBXVvLM1kfjd71tDmiOPtZY48SsAP3UAGndjUAS9tslQCxSQ4L7Q==
+
 use-local-storage@^2.3.6:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/use-local-storage/-/use-local-storage-2.3.6.tgz#11058465143aa7537556af482b21c6b1f77a78a6"

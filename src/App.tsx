@@ -4,19 +4,27 @@ import Main from './components/main/Main'
 import Sidebar from './components/sidebar/Sidebar'
 import { MarkdownProvider } from './contexts/MarkdownDocumentContext'
 import cx from 'classnames'
+import DeleteModal from './components/header/delete/DeleteModal'
+import styled from 'styled-components'
 
+const MainContainer = styled.div``
 function App() {
     const [openNav, toggleOpenNav] = useState<boolean>(false)
+    const [openDeleteModal, toggleOpenDeleteModal] = useState<boolean>(false)
 
     return (
         <MarkdownProvider>
-            {/* <div className={'app bg-neutral-100 dark:bg-neutral-1000'}> */}
             <Sidebar openNav={openNav} toggleOpenNav={toggleOpenNav} />
-            <div id="main-container" className={cx('h-full transition-spacing w-full', { 'ml-[250px]': openNav })}>
-                <Header openNav={openNav} toggleOpenNav={toggleOpenNav} />
+            <MainContainer id="main-container" className={cx('h-full w-full', { 'ml-[250px]': openNav })}>
+                <DeleteModal openDeleteModal={openDeleteModal} toggleOpenDeleteModal={toggleOpenDeleteModal} />
+                <Header
+                    openNav={openNav}
+                    toggleOpenNav={toggleOpenNav}
+                    openDeleteModal={openDeleteModal}
+                    toggleOpenDeleteModal={toggleOpenDeleteModal}
+                />
                 <Main />
-            </div>
-            {/* </div> */}
+            </MainContainer>
         </MarkdownProvider>
     )
 }

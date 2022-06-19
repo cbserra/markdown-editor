@@ -1,8 +1,9 @@
-import React, { useState, createContext, useEffect, useContext } from 'react'
+import React, { useState, createContext, useEffect, useContext, useCallback } from 'react'
 import useLocalStorage from 'use-local-storage'
-import { MarkdownDocument, MutableMarkdownDocument, MarkdownEditorData } from '../types/MarkdownTypes'
+import { MarkdownDocument, MutableMarkdownDocument, MarkdownEditorData, DATE_FORMAT } from '../types/MarkdownTypes'
 import data from '../data/data.json'
 import dateFormat from 'dateformat'
+import useLocalStorageState from 'use-local-storage-state'
 
 const MarkdownContext = createContext<MarkdownEditorData>({
     documents: [],
@@ -20,7 +21,6 @@ interface Props {
     children: React.ReactNode
 }
 
-const DATE_FORMAT = 'dd mmmm yyyy'
 const DEFAULT_DOC_NAME = 'untitled-document'
 const ID_NOT_FOUND = -1
 
@@ -41,14 +41,27 @@ const createIndexedCollection = (array: MarkdownDocument[]): MarkdownDocument[] 
 }
 
 export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) => {
-    const [lsMarkdownDocuments, setLsMarkdownDocuments] = useLocalStorage<MarkdownDocument[]>(
+    // const [lsMarkdownDocuments, setLsMarkdownDocuments] = useLocalStorage<MarkdownDocument[]>(
+    //     'markdown-documents',
+    //     createIndexedCollection(data as MarkdownDocument[]),
+    // )
+    // const [lsLoadedDocument, setLsLoadedDocument] = useLocalStorage<MarkdownDocument>(
+    //     'loaded-doc',
+    //     lsMarkdownDocuments[0],
+    // )
+    const [lsMarkdownDocuments, setLsMarkdownDocuments] = useLocalStorageState<MarkdownDocument[]>(
         'markdown-documents',
-        createIndexedCollection(data as MarkdownDocument[]),
+        {
+            defaultValue: createIndexedCollection(data as MarkdownDocument[]),
+        },
     )
-    const [lsLoadedDocument, setLsLoadedDocument] = useLocalStorage<MarkdownDocument>(
-        'loaded-doc',
-        lsMarkdownDocuments[0],
-    )
+    const [lsLoadedDocument, setLsLoadedDocument] = useLocalStorageState<MarkdownDocument>('loaded-doc', {
+        defaultValue: lsMarkdownDocuments[0],
+    })
+
+    // useEffect(() => {
+    //     console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 55 ~ useEffect ~ lsLoadedDocument', lsLoadedDocument)
+    // }, [lsLoadedDocument])
 
     // Under `useLocalStorage`, it's using `useState`, so this is redundant, however, using them due to TypeScript
     // complaining about `useLocalStorage` using its own local `Setter<T>` method instead of what `useState` returns
@@ -59,14 +72,14 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
     useEffect(() => {
         setLsMarkdownDocuments(markdownDocuments)
         console.log(
-            '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 80 ~ useEffect ~ markdownDocuments',
+            '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 61 ~ useEffect ~ markdownDocuments',
             markdownDocuments,
         )
     }, [markdownDocuments])
 
     useEffect(() => {
         setLsLoadedDocument(loadedDocument)
-        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 85 ~ useEffect ~ loadedDocument', loadedDocument)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 68 ~ useEffect ~ loadedDocument', loadedDocument)
     }, [loadedDocument])
 
     // useEffect(() => {
@@ -83,15 +96,15 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
             .reduce(function (a, b) {
                 return Math.max(a, b)
             }, 0)
-        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 122 ~ //useCallback ~ nextId', nextId)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 85 ~ //useCallback ~ nextId', nextId)
 
         const newDoc: MarkdownDocument = {
-            createdAt: dateFormat(new Date(), DATE_FORMAT),
+            createdAt: dateFormat(new Date(), DATE_FORMAT as string),
             name: `${DEFAULT_DOC_NAME}${docSuffix}.md`,
             content: '',
             id: nextId,
         }
-        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 130 ~ //useCallback ~ newDoc', newDoc)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 93 ~ //useCallback ~ newDoc', newDoc)
 
         return newDoc
     }
@@ -113,21 +126,22 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
     }
 
     const updateDocuments = (oldDoc: MarkdownDocument, updates: MutableMarkdownDocument) => {
-        console.log(
-            '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 181 ~ updateDocuments ~ updates',
-            JSON.stringify('content' as keyof typeof updates),
-        )
-        console.log(
-            '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 185 ~ updateDocuments ~ updates',
-            JSON.stringify(Object.keys(updates as unknown[]).map((key) => typeof key)),
-        )
         const updatedDoc: MarkdownDocument = Object.assign({}, oldDoc)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 120 ~ updateDocuments ~ oldDoc', oldDoc)
 
         if (updates.content) {
             updatedDoc.content = updates.content
+            console.log(
+                '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 124 ~ updateDocuments ~ updates.content',
+                updates.content,
+            )
         }
         if (updates.name) {
             updatedDoc.name = updates.name
+            console.log(
+                '🚀 ~ file: MarkdownDocumentContext.tsx ~ line 128 ~ updateDocuments ~ updates.name',
+                updates.name,
+            )
         }
 
         const localDocs = [...markdownDocuments]
@@ -160,14 +174,18 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
         console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 227 ~ updateDocumentName ~ localDoc', localDoc)
     }
 
-    const saveDocument = (): void => {
-        if (!loadedDocument) return
+    const saveDocument = (docToSave: MarkdownDocument): void => {
+        if (!docToSave) return
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 164 ~ saveDocument ~ docToSave', docToSave)
 
-        const localLoadedDoc = Object.assign({}, loadedDocument)
+        const localLoadedDoc = Object.assign({}, docToSave)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 182 ~ saveDocument ~ localLoadedDoc', localLoadedDoc)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 166 ~ saveDocument ~ docToSave', docToSave)
         setLoadedDocument(localLoadedDoc)
-        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 150 ~ saveDocument ~ localLoadedDoc', localLoadedDoc)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 150 ~ saveDocument ~ loadedDocument', loadedDocument)
 
-        updateDocuments(loadedDocument, { name: 'new-name.md', content: 'some new content' })
+        updateDocuments(docToSave, { name: docToSave.name, content: docToSave.content })
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 188 ~ saveDocument ~ loadedDocument', loadedDocument)
     }
 
     const markdownContentEditorData = {

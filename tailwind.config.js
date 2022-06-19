@@ -3,11 +3,14 @@ module.exports = {
     darkMode: 'class',
     theme: {
         screens: {
-            // 'sm': '375px',
+            sm: '375px',
             md: '768px',
             lg: '1440px',
         },
         colors: {
+            inherit: ['inherit'],
+            current: ['currentColor'],
+            transparent: ['transparent'],
             neutral: {
                 1000: 'hsl(225, 9%, 9%)',
                 900: 'hsl(216, 8%, 12%)',
@@ -20,7 +23,7 @@ module.exports = {
                 200: 'hsl(0, 0%, 96%)',
                 100: 'hsl(0, 0%, 100%)',
             },
-            button: {
+            orange: {
                 idle: 'hsl(13, 75%, 58%)',
                 hover: 'hsl(21, 86%, 67%)',
             },
@@ -31,47 +34,56 @@ module.exports = {
             mono: ['Roboto Mono', 'monospace'],
         },
         fontSize: {
+            xs: ['13px', '15px'],
+            sm: [
+                '14px',
+                {
+                    lineHeight: '16px',
+                    letterSpacing: '2px',
+                },
+            ],
+            md: ['15px', '18px'],
             base: '62.5%',
         },
         extend: {
-            preview: ({ theme }) => ({
-                h1: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '2rem',
-                    fontWeight: '700',
-                },
-                h2: {
-                    fontFamily: theme('fontFamily.serifLight'),
-                    fontSize: '1.75rem',
-                    fontWeight: '300',
-                },
-                h3: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                },
-                h4: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '1.25rem',
-                    fontWeight: '700',
-                },
-                h5: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '1rem',
-                    fontWeight: '700',
-                },
-                h6: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '.875rem',
-                    fontWeight: '700',
-                },
-                p: {
-                    fontFamily: theme('fontFamily.serif'),
-                    fontSize: '.875rem',
-                    fontWeight: '400',
-                    lineHeight: '1.5rem',
-                },
-            }),
+            // preview: ({ theme }) => ({
+            //     h1: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '2rem',
+            //         fontWeight: '700',
+            //     },
+            //     h2: {
+            //         fontFamily: theme('fontFamily.serifLight'),
+            //         fontSize: '1.75rem',
+            //         fontWeight: '300',
+            //     },
+            //     h3: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '1.5rem',
+            //         fontWeight: '700',
+            //     },
+            //     h4: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '1.25rem',
+            //         fontWeight: '700',
+            //     },
+            //     h5: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '1rem',
+            //         fontWeight: '700',
+            //     },
+            //     h6: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '.875rem',
+            //         fontWeight: '700',
+            //     },
+            //     p: {
+            //         fontFamily: theme('fontFamily.serif'),
+            //         fontSize: '.875rem',
+            //         fontWeight: '400',
+            //         lineHeight: '1.5rem',
+            //     },
+            // }),
             fontFamily: {
                 serifLight: ['Roboto Slab Light', 'serif'],
             },

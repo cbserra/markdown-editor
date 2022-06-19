@@ -10,16 +10,105 @@
 @layer base {
     html,
     body {
-        @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000 overflow-y-hidden;
+        @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000 overflow-hidden;
         /* text-[62.5%] */
+    }
+
+    * {
+        @apply transition-all duration-200 box-border;
+    }
+
+    #root {
+        @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000;
+    }
+
+    .preview * {
+        @apply my-5;
+    }
+
+    .preview h1 {
+        @apply font-serif text-[2rem] font-bold leading-[2.625rem];
+    }
+
+    .preview h2 {
+        @apply font-serifLight font-light text-[1.75rem] leading-[2.3125rem];
+    }
+
+    .preview h3 {
+        @apply font-serif text-[1.5rem] font-bold leading-8;
+    }
+
+    .preview h4 {
+        @apply font-serif text-[1.25rem] font-bold leading-[1.625rem];
+    }
+
+    .preview h5 {
+        @apply font-serif text-[1rem] font-bold leading-[1.3125rem];
+    }
+    .preview h6 {
+        @apply font-serif text-[.875rem] font-bold leading-[1.125rem] text-orange-idle;
+    }
+    .preview p,
+    .preview li {
+        @apply font-serif text-[.875rem] font-normal leading-[1.5rem];
+        @apply text-neutral-500;
+        @apply dark:text-neutral-400;
+    }
+
+    .preview blockquote {
+        @apply border-l-4 border-solid border-orange-idle rounded-l m-0 p-6;
+    }
+    .preview blockquote p {
+        @apply font-serif text-[.875rem] font-bold leading-[1.5rem];
+        @apply text-neutral-700;
+    }
+
+    .preview pre,
+    .preview blockquote {
+        @apply rounded p-6;
+        @apply bg-neutral-200;
+        @apply dark:bg-neutral-800;
+    }
+
+    .preview pre > code {
+        @apply font-mono text-[14px] leading-6 font-normal whitespace-pre-wrap;
+        @apply text-neutral-700;
+        @apply dark:text-neutral-100;
+    }
+
+    .preview ol {
+        @apply list-decimal;
+    }
+
+    .preview ul,
+    .preview ol {
+        @apply ml-6;
+    }
+
+    .preview ul li::before {
+        content: '\2022';
+        @apply text-orange-idle inline-block w-[1em] -ml-[1em];
+    }
+
+    .preview ul > li,
+    .preview ol > li {
+        @apply my-1;
+    }
+
+    .preview h1,
+    .preview h2,
+    .preview h3,
+    .preview h4,
+    .preview h5 {
+        @apply text-neutral-700;
+        @apply dark:text-neutral-100;
     }
 }
 
 @layer components {
     .markdown-preview-utils {
-        @apply items-center justify-between flex font-sans leading-4 tracking-[.125rem] px-2 uppercase w-full;
-
-        /* hover:bg-blue-700 focus:outline-none ; */
+        @apply items-center justify-between flex font-sans leading-4 tracking-[.125rem] uppercase w-full;
+        /* px-2 */
     }
 
     [onClick],
@@ -27,54 +116,7 @@
         cursor: pointer;
     }
 
-    .preview h1 {
-        
-    }
-
-    /* .preview {
-        background-color: theme(colors.neutral.100);
-    } */
-
-    .switch-indicator {
-        @apply bg-neutral-100 rounded-[50%] h-3 w-3 relative transition-transform duration-1000 transform
-        /* @apply transi */
-        /* background-color: #fff;
-        border-radius: 50%;
-        cursor: pointer;
-        height: 12px;
-        left: 0.4rem;
-        position: relative;
-        top: -1.3rem;
-        transform: translate3d(0, 0, 0);
-        transition: transform 600ms cubic-bezier(0.02, 0.94, 0.09, 0.97),
-            background 300ms cubic-bezier(0.17, 0.67, 0.14, 1.03);
-        width: 12px;
-        z-index: 100; */;
-    }
-
     .radio-mode {
-        @apply h-6 m-0 p-0 w-6 opacity-0;
+        @apply h-0 m-0 p-0 w-0 opacity-0;
     }
-
-    #dark-mode-true:checked ~ .switch-indicator {
-        transform: translate3d(0.1rem, 0, 0);
-    }
-
-    #dark-mode-false:checked ~ .switch-indicator {
-        transform: translate3d(1.4rem, 0, 0);
-    }
-}
-
-* {
-    @apply transition-all duration-200 
-    /* transition: color 2s ease-in-out, background-color 2s ease-in-out, width 2s ease-in, margin 2s ease-in, */
-    /* left 1s ease-in; */;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-#root {
-    @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000 overflow-y-hidden;
 }

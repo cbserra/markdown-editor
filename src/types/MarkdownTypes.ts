@@ -5,7 +5,7 @@ export type MarkdownEditorData = {
     setDocuments: React.Dispatch<React.SetStateAction<MarkdownDocument[]>>
     setLoadedDoc: React.Dispatch<React.SetStateAction<MarkdownDocument>>
     // setMarkdownContent: React.Dispatch<React.SetStateAction<string>>
-    saveDocument: (markdownEditorData: MarkdownEditorData) => void
+    saveDocument: (docToSave: MarkdownDocument) => void
     createNewDocument: () => MarkdownDocument
     updateDocumentName: (newDocumentName: string) => void
 }
@@ -28,3 +28,5 @@ export interface MutableMarkdownDocument
         Partial<Pick<OptionalMarkdownDocument, 'id' | 'createdAt'>> {}
 
 export const mutableMarkdownDocKeys: (keyof MutableMarkdownDocument)[] = ['name', 'content']
+
+export const DATE_FORMAT = 'dd mmmm yyyy'

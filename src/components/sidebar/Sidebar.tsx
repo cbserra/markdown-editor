@@ -6,49 +6,17 @@ import ToggleMode from './toggle-mode/ToggleMode'
 import styled from 'styled-components'
 import { useMarkdownContext } from '../../contexts/MarkdownDocumentContext'
 import cx from 'classnames'
-import { MarkdownDocument } from '../../types/MarkdownTypes'
+import { DATE_FORMAT, MarkdownDocument } from '../../types/MarkdownTypes'
 
 const SidebarDiv = styled.div``
 const MyDocuments = styled.div``
 const NewDocument = styled.button``
 
-const Document = styled.div`
-    // align-items: center;
-    // display: flex;
-    // justify-content: flex-start;
-    // width: 100%;
-`
-const FileInfo = styled.div`
-    // display: flex;
-    // flex-direction: column;
-`
-const FileCreationDate = styled.span`
-    // /* 500 */
-    // color: #7c8187;
+const Document = styled.div``
+const FileInfo = styled.div``
+const FileCreationDate = styled.span``
 
-    // /* Body (M) */
-    // font-family: Roboto, sans-serif;
-    // font-size: 13px;
-    // font-style: normal;
-    // font-weight: 300;
-    // line-height: 15px;
-`
-
-const Filename = styled.span`
-    // /* 100 */
-    // color: #fff;
-
-    // /* Heading (M) */
-    // font-family: Roboto, sans-serif;
-    // font-size: 15px;
-    // font-style: normal;
-    // font-weight: 400;
-    // line-height: 18px;
-
-    // &:hover {
-    //     color: hsl(13deg 75% 58% / 100%);
-    // }
-`
+const Filename = styled.span``
 
 const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const { documents, setLoadedDoc, createNewDocument } = useMarkdownContext()
@@ -59,7 +27,6 @@ const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.
             const newDoc: MarkdownDocument = createNewDocument()
             setLoadedDoc(newDoc)
             console.log('🚀 ~ file: Sidebar.tsx ~ line 60 ~ createAndSetNewDocument ~ newDoc', newDoc)
-            // setMarkdownContent(newDoc.content)
         }
         const element = newDocumentRef.current
         element?.addEventListener('click', createAndSetNewDocument)
@@ -71,18 +38,17 @@ const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.
     }, [])
 
     const docListing = (): JSX.Element[] => {
-        console.log(`documents=${JSON.stringify(documents)}`)
         return documents.map((doc: MarkdownDocument, index: number) => {
             return (
                 <Document key={index} className="flex items-center justify-start w-full m-2">
                     <DocIcon title="document" />
                     <FileInfo className={'file-info justify-end flex flex-col ml-4 mb-0'}>
                         <FileCreationDate className={'date font-sans text-[13px]'}>
-                            {dateFormat(new Date(doc.createdAt), 'dd mmmm yyyy')}
+                            {dateFormat(new Date(doc.createdAt), DATE_FORMAT)}
                         </FileCreationDate>
                         <Filename
                             className={
-                                'filename font-sans text-[15px] font-normal leading-[18px] hover:text-button-idle'
+                                'filename font-sans text-[15px] font-normal leading-[18px] hover:text-orange-idle'
                             }
                             role={'button'}
                             onClick={() => setLoadedDoc(doc)}
@@ -103,7 +69,7 @@ const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.
             )}
             id="sidenav"
         >
-            <Logo title="logo" className="mb-7" />
+            <Logo title="logo" className="lg:hidden mb-7" />
 
             <MyDocuments
                 className={
@@ -115,7 +81,7 @@ const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.
 
             <NewDocument
                 className={
-                    'new-document mb-6 bg-button-idle hover:bg-button-hover rounded-[4px] text-neutral-100 font-sans text-[15px] leading-[18px] font-normal px-8 py-3 text-center min-w-full'
+                    'new-document mb-6 bg-orange-idle hover:bg-orange-hover rounded-[4px] text-neutral-100 font-sans text-[15px] leading-[18px] font-normal px-8 py-3 text-center min-w-full'
                 }
                 ref={newDocumentRef}
             >
