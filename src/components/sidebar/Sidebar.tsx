@@ -1,10 +1,10 @@
 import { ReactComponent as Logo } from '../../images/logo.svg'
 import { ReactComponent as DocIcon } from '../../images/icon-document.svg'
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import dateFormat from 'dateformat'
 import ToggleMode from './toggle-mode/ToggleMode'
 import styled from 'styled-components'
-import { useMarkdownContext } from '../../contexts/MarkdownDocumentContext'
+import MarkdownContext from '../../contexts/MarkdownDocumentContext'
 import cx from 'classnames'
 import { DATE_FORMAT, MarkdownDocument } from '../../types/MarkdownTypes'
 
@@ -19,7 +19,7 @@ const FileCreationDate = styled.span``
 const Filename = styled.span``
 
 const Sidebar = (props: { openNav: boolean; toggleOpenNav: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    const { documents, setLoadedDoc, createNewDocument } = useMarkdownContext()
+    const { documents, setLoadedDoc, createNewDocument } = useContext(MarkdownContext)
 
     const newDocumentRef = useRef<HTMLButtonElement>(null)
     useEffect(() => {

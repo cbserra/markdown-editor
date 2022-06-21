@@ -84,9 +84,6 @@ module.exports = {
             //         lineHeight: '1.5rem',
             //     },
             // }),
-            fontFamily: {
-                serifLight: ['Roboto Slab Light', 'serif'],
-            },
             spacing: {
                 250: '250px',
             },

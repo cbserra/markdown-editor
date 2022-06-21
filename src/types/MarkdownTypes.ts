@@ -7,7 +7,7 @@ export type MarkdownEditorData = {
     // setMarkdownContent: React.Dispatch<React.SetStateAction<string>>
     saveDocument: (docToSave: MarkdownDocument) => void
     createNewDocument: () => MarkdownDocument
-    updateDocumentName: (newDocumentName: string) => void
+    // updateDocumentName: (newDocumentName: string) => void
 }
 
 export interface MarkdownDocument {

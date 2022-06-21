@@ -31,7 +31,7 @@
     }
 
     .preview h2 {
-        @apply font-serifLight font-light text-[1.75rem] leading-[2.3125rem];
+        @apply font-serif font-light text-[1.75rem] leading-[2.3125rem];
     }
 
     .preview h3 {

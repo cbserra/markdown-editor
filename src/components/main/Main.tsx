@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import { useMarkdownContext } from '../../contexts/MarkdownDocumentContext'
+import { useContext, useEffect, useState } from 'react'
+import MarkdownContext from '../../contexts/MarkdownDocumentContext'
 import ToggleMarkdownPreview from './toggle-markdown-preview/ToggleMarkdownPreview'
 
 const Main = () => {
-    const { loadedDoc, setLoadedDoc } = useMarkdownContext()
+    const { loadedDoc, setLoadedDoc } = useContext(MarkdownContext)
     const [togglePreview, setTogglePreview] = useState(false)
     const [localMarkdownContent, setLocalMarkdownContent] = useState(loadedDoc.content)
 

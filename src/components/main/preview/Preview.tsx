@@ -2,7 +2,7 @@ import { marked } from 'marked'
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
 
-const Preview = (props: { markdownData: string }) => {
+const Preview = (props: { togglePreview: boolean; markdownData: string }) => {
     const [parsedMarkdown, setParsedMarkdown] = useState<string>(marked.parse(props.markdownData))
 
     useEffect(() => {
@@ -11,7 +11,14 @@ const Preview = (props: { markdownData: string }) => {
 
     return (
         <div
-            className={cx('preview h-full px-4 py-3 overflow-auto', 'text-neutral-500', 'dark:text-neutral-400')}
+            className={cx(
+                'preview h-full flex-col px-4 py-3 overflow-auto',
+                'text-neutral-500',
+                'dark:text-neutral-400',
+                `${props.togglePreview ? 'md:flex md:w-full lg:w-1/2 lg:mx-auto' : ''}`,
+                // 'sm:w-full',
+                // 'md:flex md:w-1/2',
+            )}
             dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
         ></div>
     )

@@ -3,8 +3,8 @@ import { ReactComponent as Logo } from '../../images/logo.svg'
 import Save from './save/Save'
 import Document from './document/Document'
 import Delete from './delete/Delete'
-import { useMarkdownContext } from '../../contexts/MarkdownDocumentContext'
-import { useEffect, useState } from 'react'
+import MarkdownContext from '../../contexts/MarkdownDocumentContext'
+import { useContext, useEffect, useState } from 'react'
 
 const Header = (props: {
     openNav: boolean
@@ -12,7 +12,7 @@ const Header = (props: {
     openDeleteModal: boolean
     toggleOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-    const { loadedDoc, setLoadedDoc } = useMarkdownContext()
+    const { loadedDoc, setLoadedDoc } = useContext(MarkdownContext)
     const [localDocumentName, setLocalDocumentName] = useState<string>(loadedDoc.name)
 
     useEffect(() => {

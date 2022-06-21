@@ -33,7 +33,7 @@ const ToggleMarkdownPreview = (props: {
                 <div
                     className={cx(
                         'markdown-wrapper h-full flex-col',
-                        `${!togglePreview ? 'sm:flex' : 'sm:hidden'}`,
+                        `${togglePreview ? 'sm:hidden md:hidden' : 'sm:flex md:flex'}`,
                         `sm:w-full`,
                         'md:flex md:w-1/2',
                     )}
@@ -45,11 +45,12 @@ const ToggleMarkdownPreview = (props: {
                         )}
                     >
                         <span>Markdown</span>
-                        <ShowPreview
-                            title="show preview"
-                            onClick={() => setTogglePreview((prevValue: boolean) => !prevValue)}
-                            className={'hover:text-orange-idle'}
-                        />
+                        <button className={'md:hidden hover:text-orange-idle'}>
+                            <ShowPreview
+                                title="show preview"
+                                onClick={() => setTogglePreview((prevValue: boolean) => !prevValue)}
+                            />
+                        </button>
                     </div>
                     <Markdown markdownData={localMarkdownData} setMarkdownData={setLocalMarkdownData} />
                 </div>
@@ -58,7 +59,11 @@ const ToggleMarkdownPreview = (props: {
                 <div
                     className={cx(
                         'preview-wrapper  h-full flex-col',
-                        `${togglePreview ? 'sm:flex' : 'sm:hidden'}`,
+                        `${
+                            togglePreview
+                                ? 'sm:flex md:flex md:w-full'
+                                : 'sm:hidden md:border-l-[1px] border-l-neutral-300 dark:border-l-neutral-600'
+                        }`,
                         'sm:w-full',
                         'md:flex md:w-1/2',
                     )}
@@ -70,13 +75,20 @@ const ToggleMarkdownPreview = (props: {
                         )}
                     >
                         <span>Preview</span>
-                        <HidePreview
-                            title="hide preview"
-                            onClick={() => setTogglePreview((prevValue: boolean) => !prevValue)}
-                            className={'hover:text-orange-idle'}
-                        />
+                        <button className={cx('hover:text-orange-idle', `${!togglePreview ? 'block' : 'hidden'}`)}>
+                            <ShowPreview
+                                title="show preview"
+                                onClick={() => setTogglePreview((prevValue: boolean) => !prevValue)}
+                            />
+                        </button>
+                        <button className={cx('hover:text-orange-idle', `${togglePreview ? 'block' : 'hidden'}`)}>
+                            <HidePreview
+                                title="hide preview"
+                                onClick={() => setTogglePreview((prevValue: boolean) => !prevValue)}
+                            />
+                        </button>
                     </div>
-                    <Preview markdownData={localMarkdownData} />
+                    <Preview togglePreview={togglePreview} markdownData={localMarkdownData} />
                 </div>
             }
         </div>

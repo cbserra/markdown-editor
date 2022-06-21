@@ -37,15 +37,6 @@ const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch
                 onChange={(e) => handleChange(e)}
             />
         </div>
-        // <div className={'markdown h-full px-4 py-3'}>
-        //     <textarea
-        //         className={
-        //             'h-full w-full border-0 font-mono text-[14px] leading-6 font-normal bg-neutral-100 text-neutral-1000 dark:bg-neutral-1000 dark:text-neutral-100'
-        //         }
-        //         value={localMarkdownData}
-        //         onChange={(e) => handleChange(e)}
-        //     />
-        // </div>
     )
 }
 
