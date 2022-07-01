@@ -30,6 +30,7 @@ export default function NewDocument() {
             name: `${DEFAULT_DOC_NAME}${docSuffix}.md`,
             content: '',
             id: nextId,
+            readOnly: false,
         }
         console.log('🚀 ~ file: NewDocument.tsx ~ line 93 ~ //useCallback ~ newDoc', newDoc)
 

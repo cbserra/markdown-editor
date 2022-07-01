@@ -15,6 +15,7 @@ export interface MarkdownDocument {
     readonly createdAt: string
     name: string
     content: string
+    readonly readOnly?: boolean
 }
 
 export const markdownDocKeys: (keyof MarkdownDocument)[] = ['id', 'createdAt', 'name', 'content']
@@ -24,8 +25,8 @@ export type OptionalMarkdownDocument = Partial<MarkdownDocument>
 // export const optionalMarkdownDocKeys: (keyof OptionalMarkdownDocument)[] = ['id ', 'createdAt', 'name', 'content']
 
 export interface MutableMarkdownDocument
-    extends Omit<OptionalMarkdownDocument, 'id' | 'createdAt'>,
-        Partial<Pick<OptionalMarkdownDocument, 'id' | 'createdAt'>> {}
+    extends Omit<OptionalMarkdownDocument, 'id' | 'createdAt' | 'readOnly'>,
+        Partial<Pick<OptionalMarkdownDocument, 'id' | 'createdAt' | 'readOnly'>> {}
 
 export const mutableMarkdownDocKeys: (keyof MutableMarkdownDocument)[] = ['name', 'content']
 

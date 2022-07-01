@@ -11,16 +11,16 @@ const ID_NOT_FOUND = -1
 const SaveButton = styled.button``
 const Save = () => {
     const { markdownDocuments, setMarkdownDocuments, loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
-    const [localLoadedDocument, setLocalLoadedDocument] = useState<MarkdownDocument>(loadedDocument)
-    const [localMarkdownDocuments, setLocalMarkdownDocuments] = useState<MarkdownDocument[]>(markdownDocuments)
+    // const [localLoadedDocument, setLocalLoadedDocument] = useState<MarkdownDocument>(loadedDocument)
+    // const [localMarkdownDocuments, setLocalMarkdownDocuments] = useState<MarkdownDocument[]>(markdownDocuments)
 
-    useEffect(() => {
-        setLocalLoadedDocument(loadedDocument)
-    }, [loadedDocument])
+    // useEffect(() => {
+    //     setLocalLoadedDocument(loadedDocument)
+    // }, [loadedDocument])
 
-    useEffect(() => {
-        setLocalMarkdownDocuments(markdownDocuments)
-    }, [markdownDocuments])
+    // useEffect(() => {
+    //     setLocalMarkdownDocuments(markdownDocuments)
+    // }, [markdownDocuments])
 
     // const getDocIndexIfPresent = (docs: MarkdownDocument[], updatedDoc: MarkdownDocument): number => {
     //     // A 'doc's id should match its imdex in the collection, so try that first
@@ -80,21 +80,32 @@ const Save = () => {
     // }
 
     const saveDocument = async (): Promise<void> => {
-        if (!localLoadedDocument) return
-        console.log('🚀 ~ file: Save.tsx ~ line 74 ~ saveDocument ~ localLoadedDocument', localLoadedDocument)
+        if (!loadedDocument) return
+        console.log('🚀 ~ file: Save.tsx ~ line 84 ~ saveDocument ~ loadedDocument', loadedDocument)
 
-        const docToSave = Object.assign({}, localLoadedDocument)
-        console.log('🚀 ~ file: Save.tsx ~ line 77 ~ saveDocument ~ docToSave', docToSave)
+        const docToSave = Object.assign({}, loadedDocument)
+        const id = docToSave.id
+        console.log('🚀 ~ file: Save.tsx ~ line 88 ~ saveDocument ~ docToSave', docToSave)
         if (markdownDocuments.filter((doc) => doc.id === docToSave.id).length > 0) {
-            const response = await updateDoc(docToSave).catch(console.error)
-            console.log(response)
-
+            try {
+                const response = await updateDoc(docToSave) //.catch(console.error)
+                const docs = markdownDocuments.map((doc) => (doc.id === id ? { ...response.data } : doc))
+                setMarkdownDocuments([...docs])
+                console.log(response)
+            } catch (error) {
+                console.error(error)
+            }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             // setMarkdownDocuments(markdownDocuments.map((doc) => (doc.id === docToSave.id ? { ...response.data } : doc)))
             // setLoadedDocument(resp.data as MarkdownDocument)
         } else {
-            const response = await saveDoc(docToSave).catch(console.error)
-            console.log(response)
+            try {
+                const response = await saveDoc(docToSave) //.catch(console.error)
+                setMarkdownDocuments([...markdownDocuments, response.data])
+                console.log(response)
+            } catch (error) {
+                console.error(error)
+            }
             // setLoadedDocument(resp.data)
         }
 
@@ -122,13 +133,15 @@ const Save = () => {
     return (
         <SaveButton
             className={cx(
-                'flex items-center bg-orange-idle rounded w-10 md:w-[9.5rem] h-10 m-1 justify-center text-neutral-100 hover:bg-orange-hover',
+                'flex items-center bg-orange-idle rounded w-10 md:w-[9.5rem] h-10 m-1 justify-center text-neutral-100 ',
                 'md:px-4 md:mx-2',
+                `${loadedDocument.readOnly ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-hover cursor-pointer'}`,
             )}
             // ref={saveDocRef}
             onClick={() => {
                 saveDocument().catch(console.error)
             }}
+            disabled={loadedDocument.readOnly}
         >
             <SaveIcon />
             <span className="hidden md:inline pl-2 text-md">Save Changes</span>

@@ -3,21 +3,21 @@ import MarkdownContext from '../../contexts/MarkdownDocumentContext'
 import ToggleMarkdownPreview from './toggle-markdown-preview/ToggleMarkdownPreview'
 
 const Main = () => {
-    const { loadedDoc, setLoadedDoc } = useContext(MarkdownContext)
+    const { loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
     const [togglePreview, setTogglePreview] = useState(false)
-    const [localMarkdownContent, setLocalMarkdownContent] = useState(loadedDoc.content)
+    const [localMarkdownContent, setLocalMarkdownContent] = useState(loadedDocument.content)
 
     useEffect(() => {
-        const newLoadedDoc = Object.assign({}, loadedDoc)
+        const newLoadedDoc = Object.assign({}, loadedDocument)
         newLoadedDoc.content = localMarkdownContent
-        setLoadedDoc(newLoadedDoc)
+        setLoadedDocument(newLoadedDoc)
         console.log('🚀 ~ file: Main.tsx ~ line 19 ~ useEffect ~ newLoadedDoc', newLoadedDoc)
     }, [localMarkdownContent])
 
     useEffect(() => {
-        setLocalMarkdownContent(loadedDoc.content)
+        setLocalMarkdownContent(loadedDocument.content)
         console.log('🚀 ~ file: Main.tsx ~ line 32 ~ useEffect ~ setLocalMarkdownContent', setLocalMarkdownContent)
-    }, [loadedDoc])
+    }, [loadedDocument.content])
 
     return (
         <main className={'h-full w-full overflow-x-hidden overflow-y-auto'}>

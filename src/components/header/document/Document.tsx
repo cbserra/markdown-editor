@@ -58,6 +58,7 @@ const Document = () => {
                         'w-44 md:w-64 lg:w-96',
                         'focus-visible:outline-0 active:border-0 focus-visible:outline-none',
                         'focus:caret-orange-idle',
+                        `${loadedDocument.readOnly ? 'opacity-50 cursor-not-allowed' : 'cursor-text'}`,
                         //: !isReadOnly,
                         // },
                     )}
@@ -69,6 +70,7 @@ const Document = () => {
                     onFocus={() => setIsReadOnly(false)}
                     onBlur={() => setIsReadOnly(true)}
                     autoFocus={!isReadOnly}
+                    disabled={loadedDocument.readOnly}
                 />
                 <span
                     className={cx(

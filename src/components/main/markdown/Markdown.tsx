@@ -1,13 +1,22 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
+import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 
 const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch<React.SetStateAction<string>> }) => {
-    const markdownData = props.markdownData
-    const setMarkdownData = props.setMarkdownData
+    const { loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
+    const [markdownData, setMarkdownData] = useState(loadedDocument.content)
+    // const setMarkdownData = setLoadedDocument
     // const [localMarkdownData, setLocalMarkdownData] = useState<string>(markdownData)
 
     useEffect(() => {
-        setMarkdownData(markdownData)
+        setMarkdownData(loadedDocument.content)
+    }, [loadedDocument.content])
+
+    useEffect(() => {
+        const updatedDoc = Object.assign({}, loadedDocument)
+        updatedDoc.content = markdownData
+        setLoadedDocument(updatedDoc)
+        console.log('🚀 ~ file: Markdown.tsx ~ line 15 ~ useEffect ~ updatedDoc', updatedDoc)
         console.log('🚀 ~ file: Markdown.tsx ~ line 16 ~ useEffect ~ markdownData', markdownData)
     }, [markdownData])
 

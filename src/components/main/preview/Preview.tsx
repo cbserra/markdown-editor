@@ -1,9 +1,11 @@
 import { marked } from 'marked'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
+import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 
 const Preview = (props: { togglePreview: boolean; markdownData: string }) => {
-    const [parsedMarkdown, setParsedMarkdown] = useState<string>(marked.parse(props.markdownData))
+    const { loadedDocument } = useContext(MarkdownContext)
+    const [parsedMarkdown, setParsedMarkdown] = useState<string>(marked.parse(loadedDocument.content))
 
     useEffect(() => {
         setParsedMarkdown(marked.parse(props.markdownData))
