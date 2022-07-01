@@ -1,12 +1,12 @@
 export type MarkdownEditorData = {
-    documents: MarkdownDocument[]
-    loadedDoc: MarkdownDocument
+    markdownDocuments: MarkdownDocument[]
+    loadedDocument: MarkdownDocument
     // markdownContent: string
-    setDocuments: React.Dispatch<React.SetStateAction<MarkdownDocument[]>>
-    setLoadedDoc: React.Dispatch<React.SetStateAction<MarkdownDocument>>
+    setMarkdownDocuments: React.Dispatch<React.SetStateAction<MarkdownDocument[]>>
+    setLoadedDocument: React.Dispatch<React.SetStateAction<MarkdownDocument>>
     // setMarkdownContent: React.Dispatch<React.SetStateAction<string>>
-    saveDocument: (docToSave: MarkdownDocument) => void
-    createNewDocument: () => MarkdownDocument
+    // saveDocument: () => void
+    // createNewDocument: () => MarkdownDocument
     // updateDocumentName: (newDocumentName: string) => void
 }
 

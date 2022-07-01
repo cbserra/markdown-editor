@@ -12,30 +12,29 @@ const Header = (props: {
     openDeleteModal: boolean
     toggleOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-    const { loadedDoc, setLoadedDoc } = useContext(MarkdownContext)
-    const [localDocumentName, setLocalDocumentName] = useState<string>(loadedDoc.name)
+    // const [localDocumentName, setLocalDocumentName] = useState<string>(loadedDoc?.name || '')
 
-    useEffect(() => {
-        const localLoadedDoc = Object.assign({}, loadedDoc)
-        localLoadedDoc.name = localDocumentName
-        console.log('🚀 ~ file: Header.tsx ~ line 15 ~ useEffect ~ localLoadedDoc', localLoadedDoc)
+    // useEffect(() => {
+    //     const localLoadedDoc = Object.assign({}, loadedDocument)
+    //     localLoadedDoc.name = localDocumentName
+    //     console.log('🚀 ~ file: Header.tsx ~ line 15 ~ useEffect ~ localLoadedDoc', localLoadedDoc)
 
-        setLoadedDoc(localLoadedDoc)
-    }, [localDocumentName])
+    //     setLoadedDoc(localLoadedDoc)
+    // }, [localDocumentName])
 
-    useEffect(() => {
-        setLocalDocumentName(loadedDoc.name)
-        console.log('🚀 ~ file: Header.tsx ~ line 22 ~ useEfsm:h-14 sm:w-14 fe:ct ~ loadedDoc', loadedDoc)
-    }, [loadedDoc])
+    // useEffect(() => {
+    //     setLocalDocumentName(loadedDoc?.name || '')
+    //     console.log('🚀 ~ file: Header.tsx ~ line 22 ~ useEfsm:h-14 sm:w-14 fe:ct ~ loadedDoc', loadedDoc)
+    // }, [loadedDoc])
 
     return (
-        <header className="items-center bg-neutral-800 text-neutral-100 flex sm:h-14 md:h-[4.5rem] justify-between w-full">
+        <header className="items-center bg-neutral-800 text-neutral-100 flex h-14 md:h-[4.5rem] justify-between w-full">
             <OpenCloseToggle openNav={props.openNav} toggleOpenNav={props.toggleOpenNav} />
-            <div className="logo-wrapper sm:hidden lg:block px-6 py-4 lg:border-r-neutral-600 lg:border-r-[1px]">
+            <div className="logo-wrapper hidden lg:block px-6 py-4 lg:border-r-neutral-600 lg:border-r-[1px]">
                 <Logo title="logo" />
             </div>
 
-            <Document documentName={localDocumentName} setDocumentName={setLocalDocumentName} />
+            <Document />
             <Delete openDeleteModal={props.openDeleteModal} toggleOpenDeleteModal={props.toggleOpenDeleteModal} />
             <Save />
         </header>

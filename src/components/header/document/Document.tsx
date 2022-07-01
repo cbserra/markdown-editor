@@ -1,87 +1,40 @@
 import cx from 'classnames'
-import { ChangeEvent, createRef, RefObject, SetStateAction, useEffect, useState } from 'react'
+import { ChangeEvent, createRef, RefObject, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 import { ReactComponent as DocIcon } from '../../../images/icon-document.svg'
 
-const DocumentDiv = styled.div`
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    color: #fff;
-
-    & i {
-        height: 16px;
-        margin: 1rem 1.5rem;
-        width: 14px;
-    }
-
-    & .filename {
-        background-color: transparent;
-
-        /* 100 */
-        color: #fff;
-        font-family: Roboto, sans-serif;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.125rem;
-        width: min-content;
-
-        &:active {
-            border: 0;
-        }
-
-        &:focus-visible {
-            outline: none;
-        }
-    }
-`
-const Document = (props: { documentName: string; setDocumentName: React.Dispatch<SetStateAction<string>> }) => {
-    const documentName = props.documentName
-    const setDocumentName = props.setDocumentName
-    const [localDocumentName, setLocalDocumentName] = useState<string>(documentName)
+const DocumentDiv = styled.div``
+const Document = () => {
+    const { loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
+    const [localDocumentName, setLocalDocumentName] = useState<string>(loadedDocument.name)
     const [isReadOnly, setIsReadOnly] = useState<boolean>(true)
 
     useEffect(() => {
-        setLocalDocumentName(documentName)
-    }, [documentName])
+        setLocalDocumentName(loadedDocument.name)
+    }, [loadedDocument.name])
 
     useEffect(() => {
-        setDocumentName(localDocumentName)
+        const updatedDoc = Object.assign({}, loadedDocument)
+        updatedDoc.name = localDocumentName
+
+        setLoadedDocument(updatedDoc)
     }, [localDocumentName])
 
-    const docNameInputRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
-    // const editDocumentName = () => {
-    //     console.log(`inside Document, editDocumentName`)
-    //     const element: HTMLDivElement | null = docNameInputRef.current
-    //     element?.removeAttribute('readOnly')
-    //     console.log(`inside Document, editDocumentName, element=${JSON.stringify(element)}`)
-    // }
+    // const docNameInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    // useEffect(() => {
+    //     const element: HTMLInputElement | null = docNameInputRef.current
 
-    useEffect(() => {
-        const element: HTMLInputElement | null = docNameInputRef.current
+    //     // element?.addEventListener('change', () => setDocumentName(element?.value))
+    //     element?.addEventListener('focus', () => setIsReadOnly(false))
+    //     element?.addEventListener('blur', () => setIsReadOnly(true))
 
-        // element?.addEventListener('change', () => setDocumentName(element?.value))
-        element?.addEventListener('focus', () => setIsReadOnly(false))
-        element?.addEventListener('blur', () => setIsReadOnly(true))
-        // element?.addEventListener('keydown', (event) => {
-        //     if (!event.target) {
-        //         return
-        //     }
-
-        //     if (event.key === 'Enter') {
-        //         updateDocumentName(element.value)
-        //         event.preventDefault()
-        //         event.stopPropagation()
-        //     }
-        // })
-
-        return () => {
-            // element?.removeEventListener('change', () => setDocumentName(element?.value))
-            element?.removeEventListener('focus', () => setIsReadOnly(false))
-            element?.removeEventListener('blur', () => setIsReadOnly(true))
-        }
-    })
+    //     return () => {
+    //         // element?.removeEventListener('change', () => setDocumentName(element?.value))
+    //         element?.removeEventListener('focus', () => setIsReadOnly(false))
+    //         element?.removeEventListener('blur', () => setIsReadOnly(true))
+    //     }
+    // })
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         console.log('🚀 ~ file: Document.tsx ~ line 89 ~ handleChange ~ event', event)
@@ -89,26 +42,42 @@ const Document = (props: { documentName: string; setDocumentName: React.Dispatch
     }
 
     return (
-        <DocumentDiv className="h-full ml-6">
+        <DocumentDiv className="flex items-center justify-start h-full ml-6 md:w-64">
             <DocIcon />
-            <div className="filename-wrapper flex flex-col h-9 pl-4 justify-center">
+            <div className="filename-wrapper relative flex flex-col h-9 pl-4 justify-center">
                 <label
-                    className="sm:hidden md:inline lg:inline document-name text-xs text-neutral-500 font-light mb-1"
+                    className="hidden md:inline lg:inline document-name text-xs text-neutral-500 font-light mb-1"
                     htmlFor="filename"
                 >
                     Document Name
                 </label>
                 <input
                     type={'text'}
-                    className={cx('filename active:border-0 focus-visible:outline-none', {
-                        'bg-transparent-0 border-b-[1px] border-b-neutral-100 caret-orange-idle': !isReadOnly,
-                    })}
-                    value={documentName}
+                    className={cx(
+                        'filename peer border-opacity-0 border-0  bg-transparent-0 text-neutral-100',
+                        'w-44 md:w-64 lg:w-96',
+                        'focus-visible:outline-0 active:border-0 focus-visible:outline-none',
+                        'focus:caret-orange-idle',
+                        //: !isReadOnly,
+                        // },
+                    )}
+                    value={localDocumentName}
                     readOnly={isReadOnly}
-                    ref={docNameInputRef}
+                    // ref={docNameInputRef}
                     id={'filename'}
                     onChange={(e) => handleChange(e)}
+                    onFocus={() => setIsReadOnly(false)}
+                    onBlur={() => setIsReadOnly(true)}
+                    autoFocus={!isReadOnly}
                 />
+                <span
+                    className={cx(
+                        'focus-border absolute origin-center bg-neutral-100',
+                        'bottom-0 left-1/2 w-0 h-[1px]',
+                        'transition-all duration-500',
+                        'peer-focus:left-0 peer-focus:w-full',
+                    )}
+                ></span>
             </div>
         </DocumentDiv>
     )

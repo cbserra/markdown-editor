@@ -15,7 +15,12 @@
     }
 
     * {
-        @apply transition-all duration-200 box-border;
+        @apply box-border;
+        @apply transition-all duration-300 ease-in-out;
+        /* @apply transition-all;
+        @apply duration-[5s] */
+        /* @apply opacity-0 box-border;
+        animation: fadeIn 1s ease-in 0.7s forwards; */
     }
 
     #root {
@@ -116,7 +121,104 @@
         cursor: pointer;
     }
 
-    .radio-mode {
+    /* .radio-mode {
         @apply h-0 m-0 p-0 w-0 opacity-0;
+    } */
+
+    .bar {
+        height: 2px;
+        width: 32px;
+        /* display: block; */
+        /* margin: 0.4rem auto; */
+        position: absolute;
+        /* position: relative; */
+        background-color: #fff;
+        border-radius: 10px;
+        transition: 0.4s;
+    }
+    .bar.top {
+        top: 12px;
+        transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
+    }
+    .bar.mid {
+        top: 24px;
+        transition: 0.3s ease 0.3s;
+    }
+    .bar.bot {
+        top: 36px;
+        transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
+    }
+    .open .bar.top {
+        top: 2rem;
+        transform: rotate(45deg);
+        /* transform: translateY(15px) rotate(45deg); */
+        transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
+    }
+    .open .bar.mid {
+        opacity: 0;
+    }
+    .open .bar.bot {
+        top: 2rem;
+        transform: rotate(-45deg);
+        /* transform: translateY(-15px) rotate(-45deg); */
+        transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
+    }
+    /*============= Demo  Animation  ================*/
+    @keyframes mrotr {
+        0% {
+            transform: translateY(0px), rotate(0);
+        }
+        50% {
+            transform: translateY(15px), rotate(0);
+        }
+        100% {
+            transform: translateY(15px) rotate(45deg);
+        }
+    }
+    @keyframes mrotl {
+        0% {
+            transform: translateY(0px), rotate(0);
+        }
+        50% {
+            transform: translateY(-15px), rotate(0);
+        }
+        100% {
+            transform: translateY(-15px) rotate(-45deg);
+        }
+    }
+    @keyframes fade {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+}
+
+@layer utilities {
+    @keyframes caretBlink {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        60% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        100% {
+            transform: scaleX(1);
+        }
     }
 }

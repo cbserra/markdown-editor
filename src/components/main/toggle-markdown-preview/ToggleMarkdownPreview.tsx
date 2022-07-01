@@ -15,17 +15,17 @@ const ToggleMarkdownPreview = (props: {
     const setTogglePreview = props.setTogglePreview
     const markdownData = props.markdownData
     const setMarkdownData = props.setMarkdownData
-    const [localMarkdownData, setLocalMarkdownData] = useState<string>(markdownData)
+    // const [localMarkdownData, setLocalMarkdownData] = useState<string>(markdownData)
 
-    useEffect(() => {
-        setMarkdownData(localMarkdownData)
-        console.log('🚀 ~ file: Markdown.tsx ~ line 16 ~ useEffect ~ localMarkdownData', localMarkdownData)
-    }, [localMarkdownData])
+    // useEffect(() => {
+    //     setMarkdownData(localMarkdownData)
+    //     console.log('🚀 ~ file: ToggleMarkdownPreview.tsx ~ line 16 ~ useEffect ~ localMarkdownData', localMarkdownData)
+    // }, [localMarkdownData])
 
-    useEffect(() => {
-        setLocalMarkdownData(markdownData)
-        console.log('🚀 ~ file: Markdown.tsx ~ line 18 ~ useEffect ~ markdownData', markdownData)
-    }, [markdownData])
+    // useEffect(() => {
+    //     setLocalMarkdownData(markdownData)
+    //     console.log('🚀 ~ file: ToggleMarkdownPreview.tsx ~ line 18 ~ useEffect ~ markdownData', markdownData)
+    // }, [markdownData])
 
     return (
         <div className="toggle-preview flex items-stretch h-full w-full">
@@ -33,9 +33,9 @@ const ToggleMarkdownPreview = (props: {
                 <div
                     className={cx(
                         'markdown-wrapper h-full flex-col',
-                        `${togglePreview ? 'sm:hidden md:hidden' : 'sm:flex md:flex'}`,
-                        `sm:w-full`,
-                        'md:flex md:w-1/2',
+                        `${togglePreview ? 'hidden' : 'flex w-full  md:w-1/2'}`,
+                        // `sm:`,
+                        // 'md:flex',
                     )}
                 >
                     <div
@@ -52,7 +52,7 @@ const ToggleMarkdownPreview = (props: {
                             />
                         </button>
                     </div>
-                    <Markdown markdownData={localMarkdownData} setMarkdownData={setLocalMarkdownData} />
+                    <Markdown markdownData={markdownData} setMarkdownData={setMarkdownData} />
                 </div>
             }
             {
@@ -66,6 +66,7 @@ const ToggleMarkdownPreview = (props: {
                         }`,
                         'sm:w-full',
                         'md:flex md:w-1/2',
+                        `${togglePreview ? 'md:flex md:w-[48rem] md:mx-auto' : ''}`,
                     )}
                 >
                     <div
@@ -88,7 +89,7 @@ const ToggleMarkdownPreview = (props: {
                             />
                         </button>
                     </div>
-                    <Preview togglePreview={togglePreview} markdownData={localMarkdownData} />
+                    <Preview togglePreview={togglePreview} markdownData={markdownData} />
                 </div>
             }
         </div>

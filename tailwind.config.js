@@ -46,44 +46,9 @@ module.exports = {
             base: '62.5%',
         },
         extend: {
-            // preview: ({ theme }) => ({
-            //     h1: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '2rem',
-            //         fontWeight: '700',
-            //     },
-            //     h2: {
-            //         fontFamily: theme('fontFamily.serifLight'),
-            //         fontSize: '1.75rem',
-            //         fontWeight: '300',
-            //     },
-            //     h3: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '1.5rem',
-            //         fontWeight: '700',
-            //     },
-            //     h4: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '1.25rem',
-            //         fontWeight: '700',
-            //     },
-            //     h5: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '1rem',
-            //         fontWeight: '700',
-            //     },
-            //     h6: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '.875rem',
-            //         fontWeight: '700',
-            //     },
-            //     p: {
-            //         fontFamily: theme('fontFamily.serif'),
-            //         fontSize: '.875rem',
-            //         fontWeight: '400',
-            //         lineHeight: '1.5rem',
-            //     },
-            // }),
+            backgroundImage: {
+                'moon-icon': "url('/src/images/icon-dark-mode.svg')",
+            },
             spacing: {
                 250: '250px',
             },

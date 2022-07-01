@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+import cx from 'classnames'
 
 const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch<React.SetStateAction<string>> }) => {
     const markdownData = props.markdownData
@@ -30,9 +31,12 @@ const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch
     return (
         <div className={'markdown h-full px-4 py-3'}>
             <textarea
-                className={
-                    'h-full w-full border-0 font-mono text-[14px] leading-6 font-normal bg-neutral-100 text-neutral-1000 dark:bg-neutral-1000 dark:text-neutral-100'
-                }
+                className={cx(
+                    'appearance-none h-full w-full border-0',
+                    'dark:bg-neutral-1000 dark:text-neutral-100',
+                    'font-mono text-[14px] leading-6 font-normal bg-neutral-100 text-neutral-1000',
+                    'focus-visible:outline-0 active:border-0 focus-visible:outline-none',
+                )}
                 value={markdownData}
                 onChange={(e) => handleChange(e)}
             />
