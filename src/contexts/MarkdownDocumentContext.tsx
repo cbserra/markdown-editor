@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import { MarkdownDocument, MarkdownEditorData, DATE_FORMAT } from '../types/MarkdownTypes'
 import dateFormat from 'dateformat'
 import useAxios, { configure } from 'axios-hooks'
@@ -76,6 +76,12 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
     //     fetchData().catch(console.error)
     // }, [])
     // const [markdownContent, setMarkdownContent] = useState<string>(lsMarkdownContent)
+
+    useEffect(() => {
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 26 ~ data, loading, error', data, loading, error)
+        setMarkdownDocuments(data?.slice() ?? [])
+        setLoadedDocument(data?.[0] ?? EMPTY_OBJ)
+    }, [data, loading, error])
 
     const createNewDocument = (): MarkdownDocument => {
         console.log(
