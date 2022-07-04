@@ -1,3 +1,5 @@
+import { Axios, AxiosError } from 'axios'
+
 export type MarkdownEditorData = {
     markdownDocuments: MarkdownDocument[]
     loadedDocument: MarkdownDocument
@@ -8,6 +10,10 @@ export type MarkdownEditorData = {
     // saveDocument: () => void
     // createNewDocument: () => MarkdownDocument
     // updateDocumentName: (newDocumentName: string) => void
+    createNewDocument: () => MarkdownDocument
+    loading: boolean
+    error: AxiosError | null
+    axios: Axios
 }
 
 export interface MarkdownDocument {

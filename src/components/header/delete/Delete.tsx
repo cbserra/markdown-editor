@@ -9,8 +9,7 @@ const Delete = (props: {
     openDeleteModal: boolean
     toggleOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-    const { loadedDocument, setLoadedDocument, markdownDocuments, setMarkdownDocuments } =
-        useContext(MarkdownDocumentContext)
+    const { loadedDocument } = useContext(MarkdownDocumentContext)
     const toggleOpenDeleteModal = props.toggleOpenDeleteModal
     const openDeleteModal = props.openDeleteModal
 
