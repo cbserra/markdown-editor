@@ -1,7 +1,6 @@
 import { ReactComponent as HidePreview } from '../../../images/icon-hide-preview.svg'
 import { ReactComponent as ShowPreview } from '../../../images/icon-show-preview.svg'
 import cx from 'classnames'
-import { ChangeEvent, useEffect, useState } from 'react'
 import Markdown from '../markdown/Markdown'
 import Preview from '../preview/Preview'
 
@@ -15,17 +14,6 @@ const ToggleMarkdownPreview = (props: {
     const setTogglePreview = props.setTogglePreview
     const markdownData = props.markdownData
     const setMarkdownData = props.setMarkdownData
-    // const [localMarkdownData, setLocalMarkdownData] = useState<string>(markdownData)
-
-    // useEffect(() => {
-    //     setMarkdownData(localMarkdownData)
-    //     console.log('🚀 ~ file: ToggleMarkdownPreview.tsx ~ line 16 ~ useEffect ~ localMarkdownData', localMarkdownData)
-    // }, [localMarkdownData])
-
-    // useEffect(() => {
-    //     setLocalMarkdownData(markdownData)
-    //     console.log('🚀 ~ file: ToggleMarkdownPreview.tsx ~ line 18 ~ useEffect ~ markdownData', markdownData)
-    // }, [markdownData])
 
     return (
         <div className="toggle-preview flex items-stretch h-full w-full">

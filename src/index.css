@@ -8,15 +8,18 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply h-full w-full;
+    }
     html,
     body {
-        @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000 overflow-hidden;
+        @apply h-full w-full m-0 p-0 font-sans antialiased bg-neutral-100 dark:bg-neutral-1000 overflow-x-hidden;
         /* text-[62.5%] */
     }
 
     * {
         @apply box-border;
-        @apply transition-all duration-300 ease-in-out;
+        /* @apply transition-all duration-300 ease-in-out; */
         /* @apply transition-all;
         @apply duration-[5s] */
         /* @apply opacity-0 box-border;
@@ -121,17 +124,63 @@
         cursor: pointer;
     }
 
-    /* .radio-mode {
-        @apply h-0 m-0 p-0 w-0 opacity-0;
-    } */
+    /* HAMBURGER BUTTON  */
+    .hamburger {
+        display: block;
+        position: relative;
+        transition: background 100ms ease 100ms;
+        width: 1.5em;
+    }
 
-    .bar {
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+        height: 3px;
+        background: #fff;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+    }
+
+    .hamburger::before {
+        top: -9px;
+        transition: top 300ms ease 300ms, transform 300ms ease;
+    }
+
+    .hamburger::after {
+        bottom: -9px;
+        transition: bottom 300ms ease 300ms, transform 300ms ease;
+    }
+
+    #open-close-menu-checkbox:checked ~ .hamburger::before {
+        top: 0;
+        transform: rotate(-45deg);
+        transition: top 300ms ease, transform 300ms ease 300ms;
+    }
+
+    #open-close-menu-checkbox:checked ~ .hamburger {
+        background: transparent;
+        transition: background 100ms ease 300ms;
+    }
+
+    #open-close-menu-checkbox:checked ~ .hamburger::after {
+        bottom: 0;
+        transform: rotate(45deg);
+        transition: bottom 300ms ease, transform 300ms ease 300ms;
+    }
+
+    /* .bar {
         height: 2px;
         width: 32px;
-        /* display: block; */
-        /* margin: 0.4rem auto; */
+        display: block;
+        margin: 0.4rem auto;
         position: absolute;
-        /* position: relative; */
+        position: relative;
         background-color: #fff;
         border-radius: 10px;
         transition: 0.4s;
@@ -151,7 +200,7 @@
     .open .bar.top {
         top: 2rem;
         transform: rotate(45deg);
-        /* transform: translateY(15px) rotate(45deg); */
+        transform: translateY(15px) rotate(45deg);
         transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
     }
     .open .bar.mid {
@@ -160,65 +209,7 @@
     .open .bar.bot {
         top: 2rem;
         transform: rotate(-45deg);
-        /* transform: translateY(-15px) rotate(-45deg); */
+        transform: translateY(-15px) rotate(-45deg);
         transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
-    }
-    /*============= Demo  Animation  ================*/
-    @keyframes mrotr {
-        0% {
-            transform: translateY(0px), rotate(0);
-        }
-        50% {
-            transform: translateY(15px), rotate(0);
-        }
-        100% {
-            transform: translateY(15px) rotate(45deg);
-        }
-    }
-    @keyframes mrotl {
-        0% {
-            transform: translateY(0px), rotate(0);
-        }
-        50% {
-            transform: translateY(-15px), rotate(0);
-        }
-        100% {
-            transform: translateY(-15px) rotate(-45deg);
-        }
-    }
-    @keyframes fade {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-}
-
-@layer utilities {
-    @keyframes caretBlink {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-
-    @keyframes fadeIn {
-        60% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    @keyframes scaleIn {
-        100% {
-            transform: scaleX(1);
-        }
-    }
+    } */
 }

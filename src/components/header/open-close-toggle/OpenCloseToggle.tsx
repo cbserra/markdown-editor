@@ -1,6 +1,6 @@
 import cx from 'classnames'
-import { ReactComponent as OpenMenu } from '../../../images/icon-menu.svg'
-import { ReactComponent as CloseMenu } from '../../../images/icon-close.svg'
+// import { ReactComponent as OpenMenu } from '../../../images/icon-menu.svg'
+// import { ReactComponent as CloseMenu } from '../../../images/icon-close.svg'
 import styled from 'styled-components'
 
 const OpenCloseMenuBtn = styled.button``
@@ -20,12 +20,21 @@ const OpenCloseToggle = (props: { openNav: boolean; toggleOpenNav: React.Dispatc
                 'hover:bg-orange-idle',
                 { open: props.openNav },
             )}
-            onClick={toggleSidebar}
+            // onClick={toggleSidebar}
         >
             <div className="hamburger-container flex flex-col relative items-center justify-center w-full h-full">
-                <div className="bar top"></div>
+                <label className="h-full w-full absolute flex flex-col justify-center items-center">
+                    <input
+                        type="checkbox"
+                        id="open-close-menu-checkbox"
+                        className="w-0 h-0 opacity-0 hidden"
+                        onChange={toggleSidebar}
+                    />
+                    <div className="hamburger"></div>
+                </label>
+                {/* <div className="bar top"></div>
                 <div className="bar mid"></div>
-                <div className="bar bot"> </div>
+                <div className="bar bot"> </div> */}
             </div>
         </OpenCloseMenuDiv>
 

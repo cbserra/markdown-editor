@@ -6,7 +6,7 @@ axios.defaults.baseURL = API_ENDPOINT
 
 export const getDocs = async (): Promise<AxiosResponse<MarkdownDocument[]>> => {
     const response = axios.get<MarkdownDocument[]>('/')
-    console.log('🚀 ~ file: MarkdownApi.ts ~ line 9 ~ getDocs ~ resp', response)
+    console.log('🚀 ~ file: MarkdownApi.ts ~ line 9 ~ getDocs ~ response', response)
     return response
 }
 
@@ -20,6 +20,12 @@ export const updateDoc = async (doc: MarkdownDocument): Promise<AxiosResponse<Ma
 
 export const saveDoc = async (doc: MarkdownDocument): Promise<AxiosResponse<MarkdownDocument>> => {
     const response = axios.post<MarkdownDocument>('/', doc)
-    console.log('🚀 ~ file: MarkdownApi.ts ~ line 21 ~ saveDoc ~ resp', response)
+    console.log('🚀 ~ file: MarkdownApi.ts ~ line 21 ~ saveDoc ~ response', response)
+    return response
+}
+
+export const deleteDoc = async (id: number): Promise<AxiosResponse<MarkdownDocument>> => {
+    const response = axios.delete<MarkdownDocument>(`/${id}`)
+    console.log('🚀 ~ file: MarkdownApi.ts ~ line 29 ~ deleteDoc ~ response', response)
     return response
 }

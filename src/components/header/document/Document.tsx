@@ -1,12 +1,12 @@
 import cx from 'classnames'
-import { ChangeEvent, createRef, RefObject, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 import { ReactComponent as DocIcon } from '../../../images/icon-document.svg'
 
 const DocumentDiv = styled.div``
 const Document = () => {
-    const { loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
+    const { loadedDocument, setLoadedDocument, loading } = useContext(MarkdownContext)
     const [localDocumentName, setLocalDocumentName] = useState<string>(loadedDocument.name)
     const [isReadOnly, setIsReadOnly] = useState<boolean>(true)
 
@@ -20,21 +20,6 @@ const Document = () => {
 
         setLoadedDocument(updatedDoc)
     }, [localDocumentName])
-
-    // const docNameInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
-    // useEffect(() => {
-    //     const element: HTMLInputElement | null = docNameInputRef.current
-
-    //     // element?.addEventListener('change', () => setDocumentName(element?.value))
-    //     element?.addEventListener('focus', () => setIsReadOnly(false))
-    //     element?.addEventListener('blur', () => setIsReadOnly(true))
-
-    //     return () => {
-    //         // element?.removeEventListener('change', () => setDocumentName(element?.value))
-    //         element?.removeEventListener('focus', () => setIsReadOnly(false))
-    //         element?.removeEventListener('blur', () => setIsReadOnly(true))
-    //     }
-    // })
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         console.log('🚀 ~ file: Document.tsx ~ line 89 ~ handleChange ~ event', event)
