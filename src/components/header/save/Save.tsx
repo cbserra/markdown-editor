@@ -5,79 +5,61 @@ import cx from 'classnames'
 import { ReactComponent as SaveIcon } from '../../../images/icon-save.svg'
 import { MarkdownDocument } from '../../../types/MarkdownTypes'
 import useAxios from 'axios-hooks'
-import Overlay from '../../overlay/Overlay'
+import { toast, Toaster } from 'react-hot-toast'
 import { AxiosError } from 'axios'
-import toast, { Toaster } from 'react-hot-toast'
-import { textSpanOverlapsWith } from 'typescript'
 
 const SaveButton = styled.button``
 const Save = () => {
-    const { markdownDocuments, setMarkdownDocuments, loadedDocument, setLoading, setError } =
-        useContext(MarkdownContext)
+    const { markdownDocuments, setMarkdownDocuments, loadedDocument } = useContext(MarkdownContext)
 
-    const [{ data, loading, error }, executeUpdate] = useAxios<MarkdownDocument>({}, { manual: true })
+    const [{ loading }, executeUpdate] = useAxios<MarkdownDocument>({}, { manual: true })
 
     const saveDocument = async (): Promise<MarkdownDocument | undefined> => {
         if (!loadedDocument) return
-        console.log('🚀 ~ file: Save.tsx ~ line 84 ~ saveDocument ~ loadedDocument', loadedDocument)
+        console.log('🚀 ~ file: Save.tsx ~ saveDocument ~ loadedDocument', loadedDocument)
 
         const docToSave = Object.assign({}, loadedDocument)
         const id = docToSave.id
-        console.log('🚀 ~ file: Save.tsx ~ line 88 ~ saveDocument ~ docToSave', docToSave)
-        if (markdownDocuments.filter((doc) => doc.id === id).length > 0) {
+        console.log('🚀 ~ file: Save.tsx ~ saveDocument ~ docToSave', docToSave)
+        if (markdownDocuments.filter((doc) => doc.id === id).length) {
             const toastId = toast.loading('Updating Document...') // notify()
             await executeUpdate({
                 data: docToSave,
                 url: `/${id}`,
                 method: 'PUT',
-            }).then((res) => {
-                console.log('🚀 ~ file: Save.tsx ~ line 125 ~ .then ~ res', res)
-                toast.success(`Saved ${res.data.name}!`, { id: toastId })
-                const docs = markdownDocuments.map((doc) => (doc.id === res.data?.id ? { ...res.data } : doc))
-                setMarkdownDocuments([...docs])
-
-                return res
             })
+                .then((res) => {
+                    console.log('🚀 ~ file: Save.tsx ~ .then ~ res', res)
+                    toast.success(`Updated ${res.data.name}!`, { id: toastId })
+                    const docs = markdownDocuments.map((doc) => (doc.id === res.data?.id ? { ...res.data } : doc))
+                    setMarkdownDocuments([...docs])
 
-            if (error) {
-                toast.error(`Error saving ${docToSave.name}!`, { id: toastId })
-            }
-            // .catch((err: AxiosError<any, any>) => {
-            //     console.error('🚀 ~ file: Save.tsx ~ line 35 ~ .catch ~ err', err)
-            //     setError(err)
-            // })
+                    return res
+                })
+                .catch((err: AxiosError) => {
+                    console.error('🚀 ~ file: Save.tsx ~ .catch ~ err', err)
+                    toast.error(`Error updating ${docToSave.name}! ${err.name}: ${err.message}`, { id: toastId })
+                })
         } else {
             const toastId = toast.loading('Saving New Document...') // notify()
-            // const response = await saveDoc(docToSave) //.catch(console.error)
             await executeUpdate({
                 data: docToSave,
                 url: `/`,
                 method: 'POST',
-            }).then((res) => {
-                toast.success(`Saved ${res.data.name}!`, { id: toastId })
-                console.log('🚀 ~ file: Save.tsx ~ line 138 ~ .then ~ res', res)
-                setMarkdownDocuments([...markdownDocuments, { ...res.data }])
-
-                return res
             })
+                .then((res) => {
+                    toast.success(`Saved ${res.data.name}!`, { id: toastId })
+                    console.log('🚀 ~ file: Save.tsx ~ .then ~ res', res)
+                    setMarkdownDocuments([...markdownDocuments, { ...res.data }])
 
-            if (error) {
-                toast.error(`Error saving ${docToSave.name}!`, { id: toastId })
-            }
-            // .catch((err: AxiosError<any, any>) => {
-            //     console.error('🚀 ~ file: Save.tsx ~ line 35 ~ .catch ~ err', err)
-            //     setError(err)
-            // })
+                    return res
+                })
+                .catch((err: AxiosError) => {
+                    console.error('🚀 ~ file: Save.tsx ~ .catch ~ err', err)
+                    toast.error(`Error saving ${docToSave.name}! ${err.name}: ${err.message}`, { id: toastId })
+                })
         }
     }
-
-    // if (error) {
-    //     return (
-    //         <Overlay showOrHide={true}>
-    //             <div>{error?.message}</div>
-    //         </Overlay>
-    //     )
-    // }
 
     return (
         <>
@@ -91,33 +73,7 @@ const Save = () => {
                             : 'hover:bg-orange-hover cursor-pointer'
                     }`,
                 )}
-                // ref={saveDocRef}
-
                 onClick={() => {
-                    // const executeSave = async () => {
-                    //     await saveDocument()
-                    //         .then((res: MarkdownDocument | undefined) => {
-                    //             if (res) {
-                    //                 console.log('🚀 ~ file: Save.tsx ~ line 89 ~ .then ~ res', res)
-                    //                 // toast.success(`Saved ${res.name}!`, { id: toastId })
-                    //             } else {
-                    //                 console.log('🚀 ~ file: Save.tsx ~ line 89 ~ .then ~ else')
-                    //                 // toast.dismiss(toastId)
-                    //             }
-                    //         })
-                    //         .catch((err: AxiosError) => {
-                    //             console.log('🚀 ~ file: Save.tsx ~ line 93 ~ Save ~ err', err)
-                    //             // toast.error(`An error occurred: ${err.message}`, { id: toastId })
-                    //         })
-
-                    //     // const saveFunction = toast.promise(saveDocument(), {
-                    //     //     loading: 'Saving...',
-                    //     //     success: (savedData: MarkdownDocument | undefined) =>
-                    //     //         `Successfully saved ${savedData ? savedData.name : 'document'}`,
-                    //     //     error: (err: string) => `This just happened: ${err.toString()}`,
-                    //     // })
-                    // }
-                    // void executeSave()
                     void saveDocument()
                 }}
                 disabled={loadedDocument.readOnly}
@@ -128,6 +84,9 @@ const Save = () => {
                 </span>
             </SaveButton>
             <Toaster
+                toastOptions={{
+                    className: ' bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400',
+                }}
                 position="top-right"
                 containerStyle={{
                     top: 75,
