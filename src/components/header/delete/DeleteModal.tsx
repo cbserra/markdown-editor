@@ -30,7 +30,7 @@ const DeleteModal = (props: {
         return updatedDocs.length > 0 ? updatedDocs[0] : createNewDocument()
     }
 
-    const [{ data, loading, error, response }, executeDelete] = useAxios<MarkdownDocument>(
+    const [{ loading, error }, executeDelete] = useAxios<MarkdownDocument>(
         {
             url: `/${loadedDocument.id}`,
             method: 'DELETE',
@@ -42,7 +42,7 @@ const DeleteModal = (props: {
         const id = loadedDocument.id
         await executeDelete()
             .then((resp) => {
-                console.log('🚀 ~ file: DeleteModal.tsx ~ line 122 ~ executeDelete ~ resp', resp)
+                console.log('🚀 ~ file: DeleteModal.tsx ~ line 47 ~ executeDelete ~ resp', resp)
 
                 const updatedDocs = markdownDocuments.filter((doc) => doc.id !== id)
                 setMarkdownDocuments([...updatedDocs])
@@ -73,7 +73,7 @@ const DeleteModal = (props: {
                     Are you sure you want to delete the &apos;{loadedDocument.name}&apos; document and its contents?
                     This action cannot be reversed.
                 </p>
-                {error && (
+                {error ? (
                     <div className="flex items-start justify-start gap-2">
                         <span className="text-orange-hover py-1 px-1">
                             <i className="fa-solid fa-triangle-exclamation"></i>
@@ -82,19 +82,20 @@ const DeleteModal = (props: {
                             There was an error deleting the document: {error.message}
                         </p>
                     </div>
+                ) : (
+                    <button
+                        className={cx(
+                            'bg-orange-idle hover:bg-orange-hover text-neutral-100 text-md w-full py-3 my-1 rounded-[4px]',
+                            `${loading ? 'fa-fade' : ''}`,
+                        )}
+                        onClick={() => {
+                            deleteDocument().catch(console.error)
+                        }}
+                        disabled={loading}
+                    >
+                        {loading ? 'Deleting...' : 'Confirm & Delete'}
+                    </button>
                 )}
-                <button
-                    className={cx(
-                        'bg-orange-idle hover:bg-orange-hover text-neutral-100 text-md w-full py-3 my-1 rounded-[4px]',
-                        `${loading ? 'fa-fade' : ''}`,
-                    )}
-                    onClick={() => {
-                        deleteDocument().catch(console.error)
-                    }}
-                    disabled={loading}
-                >
-                    {loading ? 'Deleting...' : 'Confirm & Delete'}
-                </button>
             </ModalDiv>
         </Modal>
     )
