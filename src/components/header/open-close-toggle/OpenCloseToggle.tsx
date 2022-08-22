@@ -22,20 +22,20 @@ const OpenCloseToggle = (props: { openNav: boolean; toggleOpenNav: React.Dispatc
             )}
             // onClick={toggleSidebar}
         >
-            <div className="hamburger-container flex flex-col relative items-center justify-center w-full h-full">
-                <label className="h-full w-full absolute flex flex-col justify-center items-center">
-                    <input
-                        type="checkbox"
-                        id="open-close-menu-checkbox"
-                        className="w-0 h-0 opacity-0 hidden"
-                        onChange={toggleSidebar}
-                    />
-                    <div className="hamburger"></div>
-                </label>
-                {/* <div className="bar top"></div>
+            {/* <div className="hamburger-container flex flex-col relative items-center justify-center w-full h-full"> */}
+            <label className="h-full w-full absolute flex flex-col justify-center items-center cursor-pointer">
+                <input
+                    type="checkbox"
+                    id="open-close-menu-checkbox"
+                    className="w-0 h-0 opacity-0 hidden"
+                    onChange={toggleSidebar}
+                />
+                <div className="hamburger"></div>
+            </label>
+            {/* <div className="bar top"></div>
                 <div className="bar mid"></div>
                 <div className="bar bot"> </div> */}
-            </div>
+            {/* </div> */}
         </OpenCloseMenuDiv>
 
         // <OpenCloseMenuBtn

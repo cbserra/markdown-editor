@@ -9,7 +9,7 @@
 
 @layer base {
     html {
-        @apply h-full w-full;
+        @apply h-full w-full min-w-min;
     }
     html,
     body {
@@ -172,6 +172,14 @@
         bottom: 0;
         transform: rotate(45deg);
         transition: bottom 300ms ease, transform 300ms ease 300ms;
+    }
+
+    .custom-react-responsive-modal-overlay {
+        @apply fixed z-50 flex items-center justify-center h-full w-full bg-opacity-50 bg-neutral-1000 dark:bg-opacity-50 dark:bg-neutral-500;
+    }
+
+    .custom-react-responsive-modal-modal {
+        @apply flex items-center justify-center rounded-[4px] p-6 bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 my-auto min-w-min gap-2;
     }
 
     /* .bar {

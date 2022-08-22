@@ -1,11 +1,20 @@
 import styled from 'styled-components'
 import cx from 'classnames'
-import { ReactComponent as CloseIcon } from '../../../images/icon-close.svg'
 import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 import { useContext } from 'react'
-import Overlay from '../../overlay/Overlay'
 import useAxios from 'axios-hooks'
 import { MarkdownDocument } from '../../../types/MarkdownTypes'
+import { Modal } from 'react-responsive-modal'
+import 'react-responsive-modal/styles.css'
+
+const closeIcon = (
+    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <g fill="currentColor">
+            <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
+            <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
+        </g>
+    </svg>
+)
 
 const ModalDiv = styled.div``
 const DeleteModal = (props: {
@@ -44,18 +53,19 @@ const DeleteModal = (props: {
     }
 
     return (
-        <Overlay showOrHide={openDeleteModal}>
-            <ModalDiv
-                className={
-                    'flex flex-col justify-between rounded-[4px] p-6 bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 my-auto w-[343px]'
-                }
-            >
-                <button
-                    className=" text-neutral-500 dark:text-neutral-400 w-4 h-4 self-end"
-                    onClick={() => toggleOpenDeleteModal(!openDeleteModal)}
-                >
-                    <CloseIcon className="" />
-                </button>
+        <Modal
+            open={openDeleteModal}
+            onClose={() => toggleOpenDeleteModal((prevValue) => !prevValue)}
+            closeOnOverlayClick={true}
+            closeOnEsc={true}
+            closeIcon={closeIcon}
+            center
+            classNames={{
+                overlay: 'custom-react-responsive-modal-overlay',
+                modal: 'custom-react-responsive-modal-modal',
+            }}
+        >
+            <ModalDiv className={'flex flex-col justify-between rounded-[4px] p-6 my-auto w-[343px]'}>
                 <h4 className="font-serif text-[1.25rem] font-bold leading-[1.625rem] text-neutral-700 dark:text-neutral-100">
                     Delete this document?
                 </h4>
@@ -86,7 +96,7 @@ const DeleteModal = (props: {
                     {loading ? 'Deleting...' : 'Confirm & Delete'}
                 </button>
             </ModalDiv>
-        </Overlay>
+        </Modal>
     )
 }
 export default DeleteModal

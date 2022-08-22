@@ -17,9 +17,7 @@ const Preview = (props: { togglePreview: boolean; markdownData: string }) => {
                 'preview h-full flex-col px-4 py-3 overflow-auto',
                 'text-neutral-500',
                 'dark:text-neutral-400',
-                `${props.togglePreview ? 'md:flex md:w-full lg:w-1/2 lg:mx-auto' : ''}`,
-                // 'sm:w-full',
-                // 'md:flex md:w-1/2',
+                `${props.togglePreview ? 'md:flex md:w-full md:max-w-2xl md:mx-auto' : ''}`,
             )}
             dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
         ></div>

@@ -27,11 +27,12 @@ const Document = () => {
     }
 
     return (
-        <DocumentDiv className="flex items-center justify-start h-full ml-6 md:w-64">
+        <DocumentDiv className="flex items-center justify-start h-full ml-6">
+            {/* md:w-64"> */}
             <DocIcon />
-            <div className="filename-wrapper relative flex flex-col h-9 pl-4 justify-center">
+            <div className="filename-wrapper relative flex flex-col h-11 pl-4 justify-center">
                 <label
-                    className="hidden md:inline lg:inline document-name text-xs text-neutral-500 font-light mb-1"
+                    className="hidden md:inline document-name text-xs text-neutral-500 font-light mb-1"
                     htmlFor="filename"
                 >
                     Document Name
@@ -59,7 +60,7 @@ const Document = () => {
                 />
                 <span
                     className={cx(
-                        'focus-border absolute origin-center bg-neutral-100',
+                        'focus-border origin-center bg-neutral-100',
                         'bottom-0 left-1/2 w-0 h-[1px]',
                         'transition-all duration-500',
                         'peer-focus:left-0 peer-focus:w-full',

@@ -13,13 +13,13 @@ const MainContainer = styled.div``
 function App() {
     const [openNav, toggleOpenNav] = useState<boolean>(false)
     const [openDeleteModal, toggleOpenDeleteModal] = useState<boolean>(false)
-    const { loading, error } = useContext(MarkdownContext)
+    const { loading, error, setError } = useContext(MarkdownContext)
 
     return (
         // <MarkdownProvider>
         <>
             {loading && <Loading />}
-            {error && <Error error={error} />}
+            {error && <Error openModal={true} error={error} setError={setError} />}
             <Sidebar openNav={openNav} toggleOpenNav={toggleOpenNav} />
             <MainContainer id="main-container" className={cx('h-full w-full', { 'ml-[250px]': openNav })}>
                 <DeleteModal openDeleteModal={openDeleteModal} toggleOpenDeleteModal={toggleOpenDeleteModal} />

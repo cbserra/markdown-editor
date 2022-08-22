@@ -12,7 +12,9 @@ export type MarkdownEditorData = {
     // updateDocumentName: (newDocumentName: string) => void
     createNewDocument: () => MarkdownDocument
     loading: boolean
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
     error: AxiosError | null
+    setError: React.Dispatch<React.SetStateAction<AxiosError<any, any> | null>>
     axios: Axios
 }
 

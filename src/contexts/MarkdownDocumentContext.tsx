@@ -2,7 +2,7 @@ import React, { useState, createContext, useEffect } from 'react'
 import { MarkdownDocument, MarkdownEditorData, DATE_FORMAT } from '../types/MarkdownTypes'
 import dateFormat from 'dateformat'
 import useAxios, { configure } from 'axios-hooks'
-import Axios from 'axios'
+import Axios, { AxiosError } from 'axios'
 
 const API_ENDPOINT = (process.env.REACT_APP_API_HOST ?? 'http://localhost:3005/') + '/docs'
 const DEFAULT_DOC_NAME = 'untitled-document'
@@ -21,7 +21,9 @@ const MarkdownContext = createContext<MarkdownEditorData>({
     setLoadedDocument: () => {},
     createNewDocument: (): MarkdownDocument => EMPTY_OBJ,
     loading: false,
+    setLoading: () => {},
     error: null,
+    setError: () => {},
     axios: axios,
 })
 
@@ -39,6 +41,13 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
     const [loadedDocument, setLoadedDocument] = useState<MarkdownDocument>(
         markdownDocuments[0] ?? { content: '', createdAt: '', name: '', id: -1, readOnly: false },
     )
+    const [globalLoading, setGlobalLoading] = useState<boolean>(false)
+    const [globalError, setGlobalError] = useState<AxiosError<any, any> | null>(null)
+
+    useEffect(() => {
+        setGlobalLoading(loading)
+        setGlobalError(error)
+    }, [loading, error])
 
     // const [{ data: putData, loading: putLoading, error: putError }, executePut] = useAxios<MarkdownDocument>(
     //     {
@@ -119,8 +128,10 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
                 setMarkdownDocuments,
                 setLoadedDocument,
                 createNewDocument,
-                loading,
-                error,
+                loading: globalLoading,
+                setLoading: setGlobalLoading,
+                error: globalError,
+                setError: setGlobalError,
                 axios,
             }}
         >
