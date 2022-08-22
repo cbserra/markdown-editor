@@ -47,14 +47,9 @@ const ToggleMarkdownPreview = (props: {
                         'preview-wrapper  h-full flex-col',
                         `${
                             togglePreview
-                                ? // ? 'sm:flex md:flex md:w-full md:flex md:w-[48rem] md:mx-auto'
-                                  //   'flex md:w-[48rem] md:mx-auto'
-                                  'flex md:mx-auto w-full'
+                                ? 'flex md:mx-auto w-full'
                                 : 'hidden md:flex md:w-1/2 md:border-l-[1px] border-l-neutral-300 dark:border-l-neutral-600'
                         }`,
-                        // 'w-full',
-                        // 'md:flex md:w-1/2',
-                        // `${togglePreview ? 'md:flex md:w-[48rem] md:mx-auto' : ''}`,
                     )}
                 >
                     <div
