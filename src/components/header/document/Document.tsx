@@ -60,7 +60,7 @@ const Document = () => {
                 />
                 <span
                     className={cx(
-                        'focus-border origin-center bg-neutral-100',
+                        'focus-border relative bg-neutral-100',
                         'bottom-0 left-1/2 w-0 h-[1px]',
                         'transition-all duration-500',
                         'peer-focus:left-0 peer-focus:w-full',
