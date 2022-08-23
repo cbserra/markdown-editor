@@ -13,7 +13,6 @@ const ToggleMarkdownPreview = (props: {
     const togglePreview = props.togglePreview
     const setTogglePreview = props.setTogglePreview
     const markdownData = props.markdownData
-    const setMarkdownData = props.setMarkdownData
 
     return (
         <div className="toggle-preview flex items-stretch h-full w-full">
@@ -38,7 +37,7 @@ const ToggleMarkdownPreview = (props: {
                             />
                         </button>
                     </div>
-                    <Markdown markdownData={markdownData} setMarkdownData={setMarkdownData} />
+                    <Markdown />
                 </div>
             }
             {

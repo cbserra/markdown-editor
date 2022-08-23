@@ -1,5 +1,4 @@
 import { Modal } from 'react-responsive-modal'
-import 'react-responsive-modal/styles.css'
 
 const closeIcon = (
     <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -12,23 +11,19 @@ const closeIcon = (
 
 const Loading = () => {
     return (
-        // <div className="fixed flex z-50 items-center justify-center h-full w-full bg-opacity-50 bg-neutral-1000 dark:bg-opacity-50 dark:bg-neutral-500">
         <Modal
             open={true}
             onClose={() => {}}
-            // closeOnOverlayClick={true}
-            // closeOnEsc={true}
-            // closeIcon={closeIcon}
             showCloseIcon={false}
             center
             classNames={{
                 overlay: 'custom-react-responsive-modal-overlay',
-                modal: 'custom-react-responsive-modal-modal',
+                modal: 'custom-react-responsive-modal-modal custom-loading-react-responsive-modal-modal',
             }}
         >
             <div
                 className={
-                    'flex flex-col bg-orange-idle  justify-between rounded-[15px] p-6 text-neutral-400 my-auto w-[343px]'
+                    'custom-loading-react-responsive-modal-content flex flex-col bg-orange-idle  justify-between rounded-[15px] p-6 text-neutral-400 my-auto w-[343px]'
                 }
             >
                 <div className="fa-3x">

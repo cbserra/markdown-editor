@@ -16,7 +16,6 @@ function App() {
     const { loading, error, setError } = useContext(MarkdownContext)
 
     return (
-        // <MarkdownProvider>
         <>
             {loading && <Loading />}
             {error && <Error openModal={true} error={error} setError={setError} />}
@@ -32,7 +31,6 @@ function App() {
                 <Main />
             </MainContainer>
         </>
-        // </MarkdownProvider>
     )
 }
 

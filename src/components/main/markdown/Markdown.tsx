@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import MarkdownContext from '../../../contexts/MarkdownDocumentContext'
 
-const Markdown = (props: { markdownData: string; setMarkdownData: React.Dispatch<React.SetStateAction<string>> }) => {
+const Markdown = () => {
     const { loadedDocument, setLoadedDocument } = useContext(MarkdownContext)
     const [markdownData, setMarkdownData] = useState(loadedDocument.content)
 

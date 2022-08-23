@@ -22,7 +22,7 @@ const Document = () => {
     }, [localDocumentName])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log('🚀 ~ file: Document.tsx ~ line 89 ~ handleChange ~ event', event)
+        console.log('🚀 ~ file: Document.tsx ~ handleChange ~ event', event)
         setLocalDocumentName(event.target.value)
     }
 

@@ -174,6 +174,7 @@
         transition: bottom 300ms ease, transform 300ms ease 300ms;
     }
 
+    /* REACT RESPONSIVE MODAL CLASSES (SaveModal, DeleteModal, Loading, etc) */ 
     .custom-react-responsive-modal-overlay {
         @apply fixed z-50 flex items-center justify-center h-full w-full bg-opacity-50 bg-neutral-1000 dark:bg-opacity-50 dark:bg-neutral-500;
     }
@@ -182,42 +183,27 @@
         @apply flex items-center justify-center rounded-[4px] p-6 bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 my-auto min-w-min gap-2;
     }
 
-    /* .bar {
-        height: 2px;
-        width: 32px;
-        display: block;
-        margin: 0.4rem auto;
-        position: absolute;
+    .custom-loading-react-responsive-modal-modal {
+        @apply bg-transparent-0 ;
+        max-width: 800px;
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        box-shadow: unset;
+        margin: unset;
+        padding: unset;
         position: relative;
-        background-color: #fff;
-        border-radius: 10px;
-        transition: 0.4s;
+        overflow-y: auto;
     }
-    .bar.top {
-        top: 12px;
-        transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
+    .custom-loading-react-responsive-modal-content {
+        position: relative;
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+        z-index: 100;
     }
-    .bar.mid {
-        top: 24px;
-        transition: 0.3s ease 0.3s;
+}
+
+@layer utilities {
+    .date {
+        @apply text-neutral-500;
     }
-    .bar.bot {
-        top: 36px;
-        transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
-    }
-    .open .bar.top {
-        top: 2rem;
-        transform: rotate(45deg);
-        transform: translateY(15px) rotate(45deg);
-        transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
-    }
-    .open .bar.mid {
-        opacity: 0;
-    }
-    .open .bar.bot {
-        top: 2rem;
-        transform: rotate(-45deg);
-        transform: translateY(-15px) rotate(-45deg);
-        transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
-    } */
 }

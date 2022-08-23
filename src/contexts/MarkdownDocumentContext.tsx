@@ -87,16 +87,13 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
     // const [markdownContent, setMarkdownContent] = useState<string>(lsMarkdownContent)
 
     useEffect(() => {
-        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ line 26 ~ data, loading, error', data, loading, error)
+        console.log('🚀 ~ file: MarkdownDocumentContext.tsx ~ data, loading, error', data, loading, error)
         setMarkdownDocuments(data?.slice() ?? [])
         setLoadedDocument(data?.[0] ?? EMPTY_OBJ)
     }, [data, loading, error])
 
     const createNewDocument = (): MarkdownDocument => {
-        console.log(
-            '🚀 ~ file: MarkdownProvider.tsx ~ line 12 ~ createNewDocument ~ markdownDocuments',
-            markdownDocuments,
-        )
+        console.log('🚀 ~ file: MarkdownProvider.tsx ~ createNewDocument ~ markdownDocuments', markdownDocuments)
         const count: number = markdownDocuments.filter((doc) => doc.name.startsWith(DEFAULT_DOC_NAME)).length
         const docSuffix: string = count > 0 ? `(${count})` : ''
 
@@ -106,7 +103,7 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
                 .reduce(function (a, b) {
                     return Math.max(a, b)
                 }, 0) + 1
-        console.log('🚀 ~ file: MarkdownProvider.tsx ~ line 85 ~ nextId', nextId)
+        console.log('🚀 ~ file: MarkdownProvider.tsx ~ nextId', nextId)
 
         const newDoc: MarkdownDocument = {
             createdAt: dateFormat(new Date(), DATE_FORMAT as string),
@@ -115,7 +112,7 @@ export const MarkdownProvider: React.FunctionComponent<Props> = ({ children }) =
             id: nextId,
             readOnly: false,
         }
-        console.log('🚀 ~ file: MarkdownProvider.tsx ~ line 93 ~ newDoc', newDoc)
+        console.log('🚀 ~ file: MarkdownProvider.tsx ~ newDoc', newDoc)
 
         return newDoc
     }

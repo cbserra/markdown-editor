@@ -42,7 +42,7 @@ const DeleteModal = (props: {
         const id = loadedDocument.id
         await executeDelete()
             .then((resp) => {
-                console.log('🚀 ~ file: DeleteModal.tsx ~ line 47 ~ executeDelete ~ resp', resp)
+                console.log('🚀 ~ file: DeleteModal.tsx ~ executeDelete ~ resp', resp)
 
                 const updatedDocs = markdownDocuments.filter((doc) => doc.id !== id)
                 setMarkdownDocuments([...updatedDocs])
